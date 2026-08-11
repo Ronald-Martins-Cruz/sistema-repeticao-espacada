@@ -1,7 +1,6 @@
 # O banco em si nao vai para o git: binario incha o repositorio a cada commit.
 # O backup versionado e estudo.sql (dump textual, diffavel).
 # Restaurar:  sqlite3 estudo.db < estudo.sql
-estudo.db
 estudo.db-wal
 estudo.db-shm
 
