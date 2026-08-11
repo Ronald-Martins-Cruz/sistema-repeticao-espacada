@@ -87,7 +87,7 @@ python -m scripts.mdpdf ciclo                    # colher grifos do Edge e reger
 
 Todos rodam **a partir da raiz do repositório** — o `mdpdf` se invoca como `scripts.mdpdf` porque o pacote mora dentro de `scripts/`.
 
-Ambiente: Windows + PowerShell; `sqlite3` está em `~/bin/sqlite3`. `importar.py` usa só a biblioteca padrão do Python. `mdpdf` depende de `pymupdf`, `markdown-it-py` e `websocket-client` (instalados), mais o Microsoft Edge, que ele usa headless como motor de impressão.
+Ambiente: Windows + PowerShell; `sqlite3` está no PATH (instalado pelo winget), então chama-se direto pelo nome. `importar.py` usa só a biblioteca padrão do Python. `mdpdf` depende de `pymupdf`, `markdown-it-py` e `websocket-client` (instalados), mais o Microsoft Edge, que ele usa headless como motor de impressão.
 
 ## Regras invioláveis
 

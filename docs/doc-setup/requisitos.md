@@ -22,19 +22,19 @@ apenas. A segunda só entra quando se quer ler o material em PDF e grifar.
 
 ## Panorama
 
-Números da coluna "testado com" são os desta máquina, em 30/07/2026 — foi
+Números da coluna "testado com" são os desta máquina, em 11/08/2026 — foi
 neles que a coisa rodou.
 
 | Ferramenta | Testado com | Para quê | Metade |
 |---|---|---|---|
-| **Python** | 3.11.6 | Roda `importar.py` e o `mdpdf`. | ambas |
-| **SQLite (CLI `sqlite3`)** | 3.53.3 | Opera `estudo.db` direto por SQL. | banco |
-| **módulo `sqlite3` do Python** | 3.42.0 | É por ele que o `importar.py` escreve no banco. | banco |
+| **Python** | 3.12.10 | Roda `importar.py` e o `mdpdf`. | ambas |
+| **SQLite (CLI `sqlite3`)** | 3.53.4 | Opera `estudo.db` direto por SQL. | banco |
+| **módulo `sqlite3` do Python** | 3.49.1 | É por ele que o `importar.py` escreve no banco. | banco |
 | **git** | 2.50.0 | Versiona `estudo.db` e `scripts/mdpdf/marcacoes/` — é o backup real. | fluxo |
-| **PyMuPDF** (`pymupdf`) | 1.26.3 | Lê e escreve as anotações do PDF — colhe os grifos e os redesenha no PDF regerado. | pdf |
+| **PyMuPDF** (`pymupdf`) | 1.28.2 | Lê e escreve as anotações do PDF — colhe os grifos e os redesenha no PDF regerado. | pdf |
 | **markdown-it-py** | 4.2.0 | Converte o markdown em HTML, com tabelas. | pdf |
 | **websocket-client** | 1.9.0 | Fala com o Edge pelo DevTools Protocol. | pdf |
-| **Microsoft Edge** | 150.0.4078.105 | Motor de impressão do PDF, em modo headless. | pdf |
+| **Microsoft Edge** | 151.0.4129.72 | Motor de impressão do PDF, em modo headless. | pdf |
 
 ---
 
@@ -54,7 +54,7 @@ Todas as tabelas do schema são `STRICT`, e `STRICT` só existe a partir do
 - o **binário `sqlite3`**, que você usa nas sessões de estudo;
 - o **SQLite embutido no Python**, que é por onde o `importar.py` grava.
 
-São versões diferentes e independentes (aqui, 3.53.3 e 3.42.0). Um Python
+São versões diferentes e independentes (aqui, 3.53.4 e 3.49.1). Um Python
 antigo pode trazer um SQLite anterior ao 3.37 mesmo com o `sqlite3.exe` do
 sistema novinho — e aí o CLI funciona e o `importar.py` quebra. Confira os dois
 (comandos na seção "Conferir se está tudo de pé").
@@ -79,8 +79,9 @@ Nesta máquina veio pelo winget e está no PATH:
 winget install SQLite.SQLite
 ```
 
-Há também uma cópia em `~/bin/sqlite3`, que é o caminho citado no `CLAUDE.md`.
-Qualquer um dos dois serve.
+O binário fica em `%LOCALAPPDATA%\Microsoft\WinGet\Packages\SQLite.SQLite_Microsoft.Winget.Source_8wekyb3d8bbwe\`,
+e é o próprio winget que põe essa pasta no PATH. Chame sempre pelo nome
+(`sqlite3`), não pelo caminho completo.
 
 ---
 
