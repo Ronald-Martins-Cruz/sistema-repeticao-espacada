@@ -130,5 +130,5 @@ UPDATE sessao SET encerrada_em = datetime('now','localtime') WHERE id = 1;
 SELECT * FROM v_auditoria;   -- tem que vir vazia
 ```
 
-Feche com o resumo da sessão e ofereça o dump:
-`sqlite3 estudo.db .dump > estudo.sql`
+Feche com o resumo da sessão e ofereça o commit do banco:
+`git commit -m "sessão 11/08" estudo.db`

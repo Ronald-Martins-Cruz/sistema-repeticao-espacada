@@ -97,4 +97,4 @@ Use as views em vez de montar SQL na mão.
 - `resposta` e `avaliacao` são imutáveis por trigger. Errou a nota? Insira uma
   **nova** avaliação — a antiga fica no histórico e a divergência aparece em
   `v_auditoria` como `reavaliacao`.
-- Depois de mexer no banco, ofereça o dump: `sqlite3 estudo.db .dump > estudo.sql`
+- Depois de mexer no banco, ofereça o commit: `git commit -m "sessão 11/08" estudo.db`

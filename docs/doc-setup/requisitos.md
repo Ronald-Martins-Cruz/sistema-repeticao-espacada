@@ -12,7 +12,7 @@ instalar qualquer coisa:
 
 | Metade | O que faz | Do que depende |
 |---|---|---|
-| **Banco de estudo** | `estudo.db`, `estudo.sql`, `importar.py` | `sqlite3` + biblioteca padrão do Python. **Nada mais.** |
+| **Banco de estudo** | `estudo.db`, `importar.py` | `sqlite3` + biblioteca padrão do Python. **Nada mais.** |
 | **PDF de leitura** | `scripts/mdpdf/` (código e marcações), `pdf/` | 4 pacotes do PyPI + Microsoft Edge |
 
 Quem só quer estudar (enunciar, responder, corrigir) precisa da primeira metade
@@ -28,9 +28,9 @@ neles que a coisa rodou.
 | Ferramenta | Testado com | Para quê | Metade |
 |---|---|---|---|
 | **Python** | 3.11.6 | Roda `importar.py` e o `mdpdf`. | ambas |
-| **SQLite (CLI `sqlite3`)** | 3.53.3 | Opera `estudo.db` direto por SQL; restaura e regrava o dump. | banco |
+| **SQLite (CLI `sqlite3`)** | 3.53.3 | Opera `estudo.db` direto por SQL. | banco |
 | **módulo `sqlite3` do Python** | 3.42.0 | É por ele que o `importar.py` escreve no banco. | banco |
-| **git** | 2.50.0 | Versiona `estudo.sql` e `scripts/mdpdf/marcacoes/` — é o backup real. | fluxo |
+| **git** | 2.50.0 | Versiona `estudo.db` e `scripts/mdpdf/marcacoes/` — é o backup real. | fluxo |
 | **PyMuPDF** (`pymupdf`) | 1.26.3 | Lê e escreve as anotações do PDF — colhe os grifos e os redesenha no PDF regerado. | pdf |
 | **markdown-it-py** | 4.2.0 | Converte o markdown em HTML, com tabelas. | pdf |
 | **websocket-client** | 1.9.0 | Fala com o Edge pelo DevTools Protocol. | pdf |
@@ -42,7 +42,8 @@ neles que a coisa rodou.
 
 `importar.py` **não tem dependência nenhuma** — só `hashlib`, `re`, `sqlite3`,
 `sys` e `pathlib`, tudo da biblioteca padrão. Não há ORM, nem ferramenta de
-migração: o schema mora em `estudo.sql` e se aplica com um `<` do shell.
+migração: o schema mora dentro do próprio `estudo.db`, versionado junto com os
+dados, e se lê com `sqlite3 estudo.db .schema`.
 
 ### Piso mínimo: SQLite 3.37
 
@@ -186,8 +187,8 @@ marcações já feitas a serem reancoradas.
 
 | Sintoma | Falta |
 |---|---|
-| `ERRO: estudo.db nao existe` (do `importar.py`) | O banco. Restaure do dump: `sqlite3 estudo.db < estudo.sql`. (A mensagem cita `schema.sql`, que não existe — o schema está dentro do `estudo.sql`.) |
-| `near "STRICT": syntax error` ao restaurar o dump | SQLite anterior ao 3.37. Atualize o `sqlite3`. |
+| `ERRO: estudo.db nao existe` (do `importar.py`) | O banco. Restaure do git: `git restore estudo.db`. |
+| `near "STRICT": syntax error` ao abrir o banco | SQLite anterior ao 3.37. Atualize o `sqlite3`. |
 | `sqlite3.OperationalError` com `STRICT` só no `importar.py`, com o CLI funcionando | O SQLite **embutido no Python** é antigo. Atualize o Python. |
 | `FOREIGN KEY constraint failed` em escrita que parecia certa | Provavelmente faltou `PRAGMA foreign_keys = ON;` na sessão — as chaves só passam a valer depois dele. |
 | `ModuleNotFoundError: No module named 'pymupdf'` (ou `markdown_it`, ou `websocket`) | O pacote correspondente — rode o `pip install` acima. |
@@ -207,8 +208,8 @@ O código assume Windows em dois pontos:
 2. As fontes do `scripts/mdpdf/estilo.css` (ver acima). Fora do Windows elas serão
    substituídas e o documento reflui.
 
-O banco não assume nada: `estudo.db`, `estudo.sql` e o `importar.py` rodam
-igual em qualquer sistema com SQLite 3.37+.
+O banco não assume nada: `estudo.db` e o `importar.py` rodam igual em qualquer
+sistema com SQLite 3.37+.
 
 O Edge é sempre lançado com um perfil temporário e descartável, em `--headless`.
 Ele **não** toca no seu perfil de navegação, nas suas abas abertas nem nas suas

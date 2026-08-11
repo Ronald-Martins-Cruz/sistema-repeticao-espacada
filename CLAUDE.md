@@ -16,8 +16,7 @@ Na raiz ficam duas coisas: o **sistema de estudo** em si (banco, perguntas, seç
 |---|---|
 | `.claude/skills/estudo/` | **Manual operacional.** Passo a passo das sessões, régua de notas, ordem correção→confiança→revelação. Leia primeiro. |
 | `.agents/` | Espelho manual de `.claude/skills/` (mesmo conteúdo, mantido sincronizado à mão) para ferramentas de IA que seguem a convenção `AGENTS.md`/`.agents/` em vez de `.claude/skills/`. |
-| `estudo.db` | Banco SQLite. **Não versionado** (ver `.gitignore`) — é o estado vivo. |
-| `estudo.sql` | Dump textual e diffável de `estudo.db`. É o backup que vai pro git e contém o **schema completo**. |
+| `estudo.db` | Banco SQLite. **Versionado** — é o estado vivo e o backup real, e carrega o **schema completo** junto com perguntas, gabaritos e histórico. |
 | `perguntas.md` | Fonte das perguntas (242 ativas). Editável à mão; importado por `importar.py`. |
 | `importar.py` | Importa `perguntas.md` → `estudo.db`. Idempotente; preserva histórico. |
 | `secoes.md` | As 30 seções, na ordem em que numeram as perguntas. |
@@ -60,7 +59,7 @@ Estas quatro últimas pastas — `fgv/`, `bacen/`, `cefet/` e `TCE-RJ/` — est�
 
 ## Modelo de dados
 
-Schema mora em `estudo.sql` (não há `schema.sql`, apesar da mensagem de erro de `importar.py` citá-lo). Tudo é `STRICT` e `PRAGMA foreign_keys = ON`.
+Schema mora dentro do próprio `estudo.db` — leia com `sqlite3 estudo.db .schema`. Tudo é `STRICT` e `PRAGMA foreign_keys = ON`.
 
 **Tabelas**
 
@@ -80,8 +79,9 @@ Schema mora em `estudo.sql` (não há `schema.sql`, apesar da mensagem de erro d
 ```sh
 sqlite3 estudo.db "SELECT * FROM v_progresso;"   # panorama
 python importar.py                               # reimportar após editar perguntas.md
-sqlite3 estudo.db < estudo.sql                   # restaurar o banco do dump
-sqlite3 estudo.db .dump > estudo.sql             # regravar o dump após uma sessão
+sqlite3 estudo.db .schema                        # ler o schema completo
+git commit -m "sessão 11/08" estudo.db           # gravar o banco no git após uma sessão
+git restore estudo.db                            # restaurar o banco do último commit
 python -m scripts.mdpdf ciclo                    # colher grifos do Edge e regerar os PDFs
 ```
 

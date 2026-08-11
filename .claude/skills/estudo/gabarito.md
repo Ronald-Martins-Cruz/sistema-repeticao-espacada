@@ -60,4 +60,4 @@ revisado for usado numa correção.
 pergunta preparada. É assim que o banco se libera por seção, no ritmo do usuário,
 em vez de despejar 258 perguntas de uma vez no primeiro dia.
 
-Ao terminar, ofereça o dump: `sqlite3 estudo.db .dump > estudo.sql`
+Ao terminar, ofereça o commit do banco: `git commit -m "gabaritos da seção 7" estudo.db`

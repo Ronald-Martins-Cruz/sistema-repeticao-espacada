@@ -268,8 +268,8 @@ def gravar(secoes: list[dict], perguntas: list[dict]) -> dict[str, int]:
 
 def main() -> int:
     if not BANCO.exists():
-        print(f"ERRO: {BANCO.name} nao existe. Rode antes:")
-        print(f"  sqlite3 {BANCO.name} < schema.sql")
+        print(f"ERRO: {BANCO.name} nao existe. Restaure do git:")
+        print(f"  git restore {BANCO.name}")
         return 1
     if not FONTE.exists():
         print(f"ERRO: {FONTE.name} nao encontrado.")
