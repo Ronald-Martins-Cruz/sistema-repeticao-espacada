@@ -7,7 +7,9 @@ from pathlib import Path
 
 DIRETORIOS = {
     ".git",
-    ".claude",
+    # `.agents/` só tem ponteiros para `.claude/skills/` — o conteúdo real das
+    # skills está lá, e é de lá que os PDFs devem sair.
+    ".agents",
     "pdf",
     "marcacoes",
     "__pycache__",

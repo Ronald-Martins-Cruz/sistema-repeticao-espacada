@@ -11,8 +11,8 @@ markdown. `estudo.db` (SQLite, na raiz do projeto) é sempre com `PRAGMA
 foreign_keys = ON;` nas escritas.
 
 **Não escreva `ponto_chave` nesta conversa.** Gabarito se prepara em conversa
-separada, pela skill `gabarito.md` de dentro da skill `estudo` — ver regra 7
-do `CLAUDE.md`. Gabarito escrito contaminado por ter visto a pergunta sendo
+separada, pela seção "Preparar o gabarito de uma seção" da skill `estudo` — ver
+regra 7 do `CLAUDE.md`. Gabarito escrito contaminado por ter visto a pergunta sendo
 criada não é o problema aqui (a pergunta ainda não tem resposta), mas manter a
 separação evita hábito de misturar as duas conversas.
 

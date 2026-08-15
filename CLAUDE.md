@@ -16,7 +16,7 @@ Na raiz ficam duas coisas: o **sistema de estudo** em si (banco, seções) e o *
 |---|---|
 | `.claude/skills/estudo/` | **Manual operacional.** Passo a passo das sessões, régua de notas, ordem correção→confiança→revelação. Leia primeiro. |
 | `.claude/skills/incluir-pergunta/` | Protocolo para inserir pergunta nova (ou várias) direto por SQL, e para vincular perguntas a provas reais. |
-| `.agents/` | Espelho manual de `.claude/skills/` (mesmo conteúdo, mantido sincronizado à mão) para ferramentas de IA que seguem a convenção `AGENTS.md`/`.agents/` em vez de `.claude/skills/`. |
+| `.agents/` | **Só ponteiros**, para ferramentas de IA que seguem a convenção `AGENTS.md`/`.agents/` em vez de `.claude/skills/`. Cada `.agents/<skill>/SKILL.md` tem o `description` da skill (o que a torna descobrível) e uma linha mandando ler o arquivo real em `.claude/skills/<skill>/SKILL.md`. **Conteúdo de skill se edita só no `.claude/`** — se criar uma skill nova, crie o ponteiro correspondente aqui. Ignorada pelo `mdpdf`: o PDF de cada skill sai do arquivo real em `.claude/skills/`. |
 | `estudo.db` | Banco SQLite. **Versionado** — é o estado vivo e o backup real, e carrega o **schema completo** junto com perguntas, gabaritos e histórico. Pergunta nova entra por `INSERT` direto (skill `incluir-pergunta`), não por um pipeline de importação. |
 | `AGENTS.md` | Só aponta para este arquivo (`Leia @CLAUDE.md`). **Não alterar.** Não confundir com a pasta `.agents/` acima. |
 | `TODO.md` | Pendências conhecidas do projeto — confira antes de assumir que algo já está resolvido. |
