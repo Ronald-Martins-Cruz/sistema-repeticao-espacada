@@ -104,12 +104,6 @@ Mostre, nesta ordem: a nota e o veredito; o que faltou, ponto a ponto, com a
 `fonte` de cada omissão; e a resposta modelo. Se `confianca - nota >= 2`, diga
 isso explicitamente — é onde o usuário perde ponto na prova sem perceber.
 
-Feche traduzindo a falha para o formato da prova: **como esse ponto viraria
-alternativa errada.** "Faltou o prazo do secreto" fica "a FGV escreve *15 anos*
-onde é *5* e você marca sem piscar". É esse o elo entre o que o usuário escreveu
-e o que vai ver na folha de respostas — sem ele, o exercício discursivo treina o
-texto e não a escolha.
-
 Depois, cheque se algum ponto-chave dessa pergunta acabou de cruzar o limiar de
 falha sistemática:
 

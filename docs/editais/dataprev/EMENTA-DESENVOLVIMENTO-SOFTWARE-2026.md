@@ -181,7 +181,7 @@ classificação se decide.
 6. Gerência de riscos.
    1. Ameaça, vulnerabilidade e impacto.
 7. Ciclo de Vida de Desenvolvimento Seguro (SDL – Security Development
-   Lifecycle), OWASP Top 10.
+   Lifecycle), OWASP Top 10 (https://owasp.org/www-project-topten/).
 8. Análise estática e dinâmica de código (SAST – Static Application Security
    Testing e DAST – Dynamic Application Security Testing).
 
@@ -218,14 +218,14 @@ classificação se decide.
    1. Conceitos básicos, disciplinas, estrutura e objetivos.
 5. Governança de TI (COBIT 2019).
    1. Conceitos básicos, estrutura e objetivos.
-6. Conceitos de gestão de processos e modelagem de processos de negócio
-   usando BPMN.
+6. Conceitos de gestão de processos e modelagem de processos de negócio usando BPMN.
 
 ---
 
 ## Fonte
 
-`docs/editais/edital-dataprev-2026.pdf`, Anexo I – Conteúdo Programático.
+`docs/editais/dataprev/edital-dataprev-2026.pdf`, Anexo I – Conteúdo
+Programático (páginas 26 e 29–30 do PDF).
 Ver também [DIFF-EDITAIS-2024-2026.md](DIFF-EDITAIS-2024-2026.md) (o que mudou
 do edital de 2024 para este) e [LACUNAS-EDITAL-2026.md](LACUNAS-EDITAL-2026.md)
 (quais destes itens ainda não têm pergunta no banco).

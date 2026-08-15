@@ -84,16 +84,19 @@ Use as views em vez de montar SQL na mão.
 | `v_sugestao_ponto` | Pontos-chave com falha sistemática (≥3 avaliações, ≥60% de falha, ainda falhando na última tentativa): sugere pergunta dedicada ou remoção do ponto |
 | `v_desempenho_secao` | Média e volume por seção, ordenado pela pior |
 | `v_cobertura` | O que falta preparar e o que nunca caiu |
-| `v_progresso` | Panorama geral e contagem regressiva da prova |
+| `v_progresso` | Panorama geral: perguntas, gabaritos, respostas, devidas hoje, nota média |
 | `v_auditoria` | Quebras de protocolo. Deve viver vazia |
 | `v_estatistica_pergunta` | Tentativas e média por pergunta |
+| `v_peso_secao` | Quanto cada seção pesou nas provas de referência (`relevancia = 'primaria'`) |
+| `v_alvos` | As provas `status = 'alvo_atual'` e dias restantes até a aplicação |
+| `v_catalogo` | O banco inteiro, sem gabarito exposto — usada para checar duplicidade ao incluir pergunta |
 
 ## Manutenção
 
-- O usuário editou `perguntas.md`? Rode `python importar.py`. É idempotente:
-  histórico sobrevive a edição, reordenação e remoção.
-- Data da prova: `INSERT INTO config VALUES ('data_prova','2026-10-18')
-  ON CONFLICT(chave) DO UPDATE SET valor=excluded.valor;`
+- O usuário quer incluir pergunta nova, vincular a uma prova real ou
+  desativar uma pergunta? Isso é trabalho da skill `incluir-pergunta`, não
+  desta conversa.
+- Contagem regressiva de prova: `v_alvos`, não mais `config.data_prova`.
 - `resposta` e `avaliacao` são imutáveis por trigger. Errou a nota? Insira uma
   **nova** avaliação — a antiga fica no histórico e a divergência aparece em
   `v_auditoria` como `reavaliacao`.

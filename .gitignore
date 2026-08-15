@@ -12,3 +12,9 @@ __pycache__/
 # O que precisa ir para o git e scripts/mdpdf/marcacoes/ (o que voce grifou),
 # nao o pdf/.
 pdf/
+
+# O markdown extraido de provas/editais e regeravel a partir dos PDFs fonte:
+# python -m scripts.pdfmd gerar
+md/
+
+observacoes.md
