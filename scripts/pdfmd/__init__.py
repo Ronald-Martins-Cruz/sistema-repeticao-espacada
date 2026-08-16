@@ -4,4 +4,4 @@ Uso:  python -m scripts.pdfmd gerar    (extrai todos os PDFs do repositório)
       python -m scripts.pdfmd --ajuda
 """
 
-__all__ = ["extract"]
+__all__ = ["colunas", "extract"]

@@ -21,9 +21,10 @@ Na raiz ficam duas coisas: o **sistema de estudo** em si (banco, seções) e o *
 | `AGENTS.md` | Só aponta para este arquivo (`Leia @CLAUDE.md`). **Não alterar.** Não confundir com a pasta `.agents/` acima. |
 | `TODO.md` | Pendências conhecidas do projeto — confira antes de assumir que algo já está resolvido. |
 | `fontes-estudo/*.md` | Textos de estudo por seção, gerados por IA, que originam os PDFs de leitura. **Não é fonte primária** — não usar para escrever gabarito. |
-| `fontes-gabaritos/*/` | Fontes primárias (PDFs, HTML) usadas para escrever os `ponto_chave` de cada seção, organizadas por conceito. Fluxo de montagem: (1) pedir a um agente fontes que ele consiga de fato acessar; (2) conferir esse acesso em uma nova janela de contexto; (3) nessa mesma janela, salvar as fontes confirmadas em `fontes-gabaritos/nome_do_conceito/`; (4) pedir a um agente para gerar os gabaritos, em outra janela de contexto nova — separada da sessão de estudo (ver regra 7). |
+| `fontes-gabaritos/*/` | Fontes primárias (PDFs, HTML) usadas para escrever os `ponto_chave` de cada seção, organizadas por conceito. Para **ler** essas fontes, use a extração em `md/fontes-gabaritos/` (mesma árvore, em markdown). Fluxo de montagem: (1) pedir a um agente fontes que ele consiga de fato acessar; (2) conferir esse acesso em uma nova janela de contexto; (3) nessa mesma janela, salvar as fontes confirmadas em `fontes-gabaritos/nome_do_conceito/`; (4) pedir a um agente para gerar os gabaritos, em outra janela de contexto nova — separada da sessão de estudo (ver regra 7). |
 | `scripts/mdpdf/marcacoes/` | Grifos, traços de caneta e notas feitos nos PDFs pelo Microsoft Edge, capturados pelo `mdpdf`. **É o que vai para o git** — o backup real das marcações (ver `.gitignore`). |
 | `pdf/` | PDFs de leitura, gerados a partir dos `.md` do repositório mais as marcações salvas em `marcacoes/`. **Não versionado** — regerável com `python -m scripts.mdpdf gerar` (ou `ciclo`, que primeiro recolhe grifos novos do Edge). |
+| `md/` | **Todo PDF do repositório extraído para markdown** — a forma legível por LLM. Espelha três árvores: `md/docs/` (editais e provas), `md/fontes-gabaritos/` (as fontes primárias — Kimball, Brewer, Härder & Reuter, SOLID…) e `md/fontes-estudo/`. Cada `x.pdf` vira `x.md` mais uma pasta `x_imagens/` com as figuras e diagramas. **Prefira ler daqui a abrir o PDF.** Ressalva: é extração automática — tabelas e fórmulas às vezes saem distorcidas, então confira no PDF original quando o trecho for decisivo (um número, um prazo, um rol). **Não versionado** — regerável com `python -m scripts.pdfmd gerar`. |
 
 ### `docs/` — material da banca
 
@@ -59,7 +60,7 @@ Estas quatro últimas pastas — `fgv/`, `bacen/`, `cefet/` e `TCE-RJ/` — est�
 | Arquivo | Papel |
 |---|---|
 | `scripts/mdpdf/` | Conversor markdown → PDF que **preserva as marcações feitas no Edge**: lê os `.md`, aplica o que está salvo em `marcacoes/` e escreve em `pdf/`. Ver a skill `pdf-estudo`. |
-| `scripts/pdfmd/` | Conversor na direção contrária: PDF → markdown. Extrai texto, tabelas e imagens/diagramas dos PDFs de `docs/` (provas, editais) para `md/`, espelhando a mesma árvore de diretórios — serve para referenciar o conteúdo das provas em formato mais legível por LLM. Ignora `pdf/` (que já nasce de markdown). Uso: `python -m scripts.pdfmd gerar`. |
+| `scripts/pdfmd/` | Conversor na direção contrária: PDF → markdown. Extrai texto, tabelas e imagens/diagramas dos PDFs de `docs/` (editais, provas), `fontes-gabaritos/` (fontes primárias) e `fontes-estudo/` para `md/`, espelhando a mesma árvore de diretórios — é o que produz a versão legível por LLM descrita na linha `md/` acima. Ignora `pdf/` (que já nasce de markdown). Página de prova em duas colunas com fio no meio é lida coluna a coluna, e não de lado a lado — sem isso as alternativas de uma questão saíam misturadas com as da seguinte. Uso: `python -m scripts.pdfmd gerar`. |
 
 ## Modelo de dados
 
