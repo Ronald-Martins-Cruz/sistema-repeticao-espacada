@@ -39,6 +39,7 @@ Cada seção deveria subir **D1 → D4**, cobrindo o nível que a prova usou
 naquele conceito e passando um degrau além. Seções em que a FGV chegou ao D4
 merecem também uma pergunta D5.
 
+
 ## A âncora híbrida
 
 Toda pergunta nova é calibrada contra uma referência:

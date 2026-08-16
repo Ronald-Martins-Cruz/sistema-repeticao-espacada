@@ -14,6 +14,7 @@ DIRETORIOS = {
     "marcacoes",
     "__pycache__",
     "node_modules",
+    "md"
 }
 
 ARQUIVOS = {

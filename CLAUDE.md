@@ -37,6 +37,10 @@ Na raiz ficam duas coisas: o **sistema de estudo** em si (banco, seções) e o *
 | `docs/editais/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md` | Transcrição do Anexo I do edital de 2026, recortada para o Perfil 3 (Desenvolvimento de Software): Módulo I comum a todos os cargos + Conhecimentos Específicos. |
 | `docs/editais/dataprev/DIFF-EDITAIS-2024-2026.md` | O que mudou de um edital para o outro. |
 | `docs/editais/dataprev/LACUNAS-EDITAL-2026.md` | Conceitos do edital de 2026 ainda sem pergunta no banco. |
+| `docs/editais/transpetro/transpetro-superior-2026.pdf` | Edital vigente do PSP TRANSPETRO nível superior (Edital nº 04/2026.4, banca **Cesgranrio**) — outro concurso, não o alvo atual. |
+| `docs/editais/transpetro/transpetro-superior-2023.pdf` | Edital do PSP anterior (nº 02/2023.2), o que gerou a prova de 10/12/2023. |
+| `docs/editais/transpetro/EMENTA-ANALISE-SISTEMAS-PROCESSOS-NEGOCIOS-2026.md` | Transcrição do Anexo IV do edital de 2026 recortada para a **Ênfase 5 (Análise de Sistemas – Processos de Negócios)**, mais estrutura da prova, vagas e remuneração. |
+| `docs/editais/transpetro/DIFF-EDITAIS-2023-2026.md` | O que mudou de um edital para o outro nessa ênfase — ementa quase intacta, mecânica de classificação bem diferente. |
 
 ### `docs/provas/` — provas anteriores
 
