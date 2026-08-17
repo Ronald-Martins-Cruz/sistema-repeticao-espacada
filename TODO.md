@@ -10,8 +10,8 @@
 
 - [X] Remover ideia de "pegadinha" ou "como isso vira alternativa errada" das respostas
 - [] Rever uso de confiança (até se deve ser utilizado)
-- [] Criar método simples para incluir ou excluir ponto chave de resposta de pergunta
-  (diagnóstico pronto: `v_sugestao_ponto` já aponta os candidatos; falta o método de aplicar a sugestão)
+- [X] Criar método simples para incluir ou excluir ponto chave de resposta de pergunta
+  (feito: `ponto_chave` ganhou soft delete — `ativo`, `motivo_desativacao`, `desativado_em`, `substitui_id` — mais `v_ponto_desativado` e os triggers `trg_ponto_chave_*`. Aplicar a sugestão agora é `UPDATE ponto_chave SET ativo = 0, motivo_desativacao = '...'` na própria sessão, depois da nota; o passo a passo está em "Corrigir um ponto-chave inadequado" na skill `estudo`. A regra 7 deixou de proibir mexer no gabarito durante a sessão e passou a proibir só a janela resposta-sem-nota, que o banco recusa sozinho.)
 
 # Incertezas
 

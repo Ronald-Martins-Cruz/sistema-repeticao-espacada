@@ -70,15 +70,15 @@ Schema mora dentro do próprio `estudo.db` — leia com `sqlite3 estudo.db .sche
 
 - `secao` — 30 seções em 2 partes (I: legislação; II: conhecimentos técnicos).
 - `pergunta` — chave natural `codigo` (`Q94`), estável entre edições. Metadados: `eh_distrator`, `eh_caso`, `profundidade` (D0–D5), `ativa`.
-- `ponto_chave` — exigências verificáveis do gabarito de cada pergunta (`essencial`, `fonte`, `revisado`).
+- `ponto_chave` — exigências verificáveis do gabarito de cada pergunta (`essencial`, `fonte`, `revisado`). Nunca se apaga nem se reescreve depois de cobrado: **soft delete** (`ativo = 0` + `motivo_desativacao`), com substituto opcional via `substitui_id`.
 - `banca` / `prova` / `etapa` / `ancora` — de qual banca, concurso e fase uma pergunta se origina. `ancora` é a associativa `pergunta × etapa`, com o número da questão na prova real; substitui a antiga `pergunta.tag_prova`.
 - `sessao` / `resposta` / `avaliacao` / `avaliacao_ponto` — histórico de estudo.
 - `agendamento` — estado SM-2 por pergunta (`facilidade`, `intervalo_dias`, `proxima_revisao`). **Nunca escrever à mão.**
 - `config` — pares chave/valor de configuração solta, hoje sem uso ativo.
 
-**Views** (use-as em vez de montar SQL na mão): `v_fila` e `v_fila_fraquezas` (perguntar — não expõem gabarito), `v_gabarito` (só após gravar a resposta), `v_calibracao`, `v_progresso`, `v_desempenho_secao`, `v_cobertura`, `v_pontos_falhados`, `v_estatistica_pergunta`, `v_auditoria` (deve viver vazia), `v_peso_secao` (peso de cada seção nas provas de referência), `v_alvos` (provas com `status = 'alvo_atual'` e dias restantes), `v_catalogo` (o banco inteiro, sem gabarito exposto). Detalhe de cada uma em `docs/doc-setup/schema.md`.
+**Views** (use-as em vez de montar SQL na mão): `v_fila` e `v_fila_fraquezas` (perguntar — não expõem gabarito), `v_gabarito` (pontos ativos, só após gravar a resposta), `v_ponto_desativado` (pontos tirados de circulação, com motivo e substituto), `v_calibracao`, `v_progresso`, `v_desempenho_secao`, `v_cobertura`, `v_pontos_falhados`, `v_estatistica_pergunta`, `v_auditoria` (deve viver vazia), `v_peso_secao` (peso de cada seção nas provas de referência), `v_alvos` (provas com `status = 'alvo_atual'` e dias restantes), `v_catalogo` (o banco inteiro, sem gabarito exposto). Detalhe de cada uma em `docs/doc-setup/schema.md`.
 
-**Triggers** garantem os invariantes: `trg_sm2` reagenda ao inserir avaliação; `resposta` e `avaliacao` são imutáveis e não deletáveis; confiança só entra depois da nota; toda pergunta nova ganha um `agendamento`.
+**Triggers** garantem os invariantes: `trg_sm2` reagenda ao inserir avaliação; `resposta` e `avaliacao` são imutáveis e não deletáveis; confiança só entra depois da nota; toda pergunta nova ganha um `agendamento`; `ponto_chave` já cobrado é imutável e indeletável (desative com motivo), e mexer no gabarito de pergunta com resposta ainda sem nota é recusado.
 
 ## Comandos
 
@@ -102,6 +102,6 @@ Ambiente: Windows + PowerShell; `sqlite3` está no PATH (instalado pelo winget),
 4. **"Não sei" é nota 0 registrada**, nunca pergunta pulada.
 5. **Não invente perguntas** nem escreva em `agendamento` — o SM-2 é automático.
 6. **Uma pergunta por vez.**
-7. **Gabarito (`ponto_chave`) prepara-se em conversa separada** da sessão de estudo, para não se contaminar com a resposta já lida (`v_auditoria` acusa).
+7. **Não mexa no gabarito de uma pergunta com resposta ainda sem nota** — é a janela em que o critério se molda à resposta já lida (`v_auditoria` acusa, e o banco recusa). Gabarito **novo** de uma seção continua sendo conversa separada; **consertar** um ponto ruim, já com a nota gravada, faz-se na própria sessão, por soft delete.
 
 Correção mede **conteúdo, não redação**: número, prazo, rol exato e a fronteira entre conceitos vizinhos — nada de estrutura, coesão ou tamanho do texto.

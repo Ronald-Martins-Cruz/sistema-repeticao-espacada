@@ -12,8 +12,11 @@
 ## 1. Manifesto Ágil — os quatro valores `Q145`
 
 ii>pf
+
 sf>da
+
 cc>nc
+
 rm>sp
 
 Estamos descobrindo maneiras melhores de desenvolver software. Através desse

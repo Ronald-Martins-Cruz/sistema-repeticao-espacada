@@ -19,10 +19,11 @@ pessoa julga se acertou, e é exatamente aí que a ilusão de saber se instala �
 usuário lê o gabarito, reconhece o conteúdo e conclui "eu sabia". Aqui a correção
 é sua, contra um gabarito que já estava gravado antes da resposta.
 
-Duas atividades cabem aqui, e **nunca na mesma conversa** (regra 7): a **sessão
-de estudo** — perguntar, corrigir, registrar — e o **preparo de gabarito** —
+Duas atividades cabem aqui, e **nunca na mesma conversa**: a **sessão de
+estudo** — perguntar, corrigir, registrar — e o **preparo de gabarito** —
 escrever os pontos-chave de uma seção, que é o que coloca perguntas novas em
-circulação.
+circulação. Consertar um ponto-chave específico que se mostrou ruim durante a
+correção é exceção: isso se faz na própria sessão, depois da nota (regra 7).
 
 ## A prova é objetiva. O formato discursivo é método, não espelho
 
@@ -62,11 +63,15 @@ O que isso muda na sua conduta:
    veio do banco. Um trigger cuida do SM-2 sozinho ao inserir a avaliação; se
    você escrever em `agendamento`, quebra o cronograma.
 6. **Uma pergunta por vez.** Não enfileire três perguntas numa mensagem só.
-7. **Gabarito prepara-se em conversa separada da sessão de estudo.** Gabarito
-   escrito depois de ler a resposta do usuário se molda ao que ele escreveu, e a
-   nota infla — `v_auditoria` acusa isso como `gabarito_contaminado`. Se estiver
-   numa sessão de estudo e faltar gabarito, encerre a sessão e peça uma conversa
-   nova para prepará-lo.
+7. **Não mexa no gabarito de uma pergunta que está com resposta sem nota.** Essa
+   janela — resposta já lida, nota ainda não gravada — é onde o critério se
+   molda ao que o usuário escreveu e a nota infla; `v_auditoria` acusa como
+   `gabarito_contaminado` e o banco recusa o `INSERT`/`UPDATE`. **Depois da nota
+   gravada, consertar um ponto ruim é permitido e desejável** — ver "Corrigir um
+   ponto-chave inadequado". A nota já é imutável: não há o que inflar.
+   Escrever gabarito **novo** de uma seção continua sendo conversa separada — é
+   outra atividade, não conserto. Se faltar gabarito no meio de uma sessão,
+   encerre e peça uma conversa nova para prepará-lo.
 
 ## Sessão de estudo
 
@@ -177,10 +182,59 @@ SELECT descricao, sugestao, vezes_avaliado, pct_falha, status_mais_recente
 FROM v_sugestao_ponto WHERE pergunta = 'Q2';
 ```
 
-Se vier alguma linha, avise como nota informativa — **não decida nada agora.**
-`v_sugestao_ponto` só sugere; excluir o ponto ou escrever pergunta dedicada é
-decisão do usuário, e só se concretiza na conversa de gabarito (regra 7), nunca
-no meio da sessão de estudo.
+Se vier alguma linha, mostre como nota informativa. `v_sugestao_ponto` só
+sugere — a decisão é do usuário. Se ele decidir tirar o ponto, faça na hora
+(logo abaixo); se a sugestão for "pergunta dedicada", isso é escrever pergunta
+nova — trabalho da skill `incluir-pergunta`, em outra conversa.
+
+### Corrigir um ponto-chave inadequado
+
+Ler a resposta contra o gabarito é justamente quando se enxerga que um
+ponto-chave está mal feito: cobra o que o enunciado não pede, empacota dois
+fatos numa frase só, está errado na fonte ou repete outro ponto. **Conserte
+aqui mesmo, depois de gravar a nota** — nunca antes (regra 7). Com a nota já
+gravada e imutável, mexer no gabarito não infla nada.
+
+Ponto-chave não se apaga nem se reescreve: **desativa-se, com motivo**, e o
+substituto entra apontando para ele. Assim `avaliacao_ponto` continua
+respondendo o que foi cobrado em cada correção passada.
+
+```sql
+-- 1. desativar o inadequado (motivo é obrigatório — o banco recusa sem ele)
+UPDATE ponto_chave
+SET ativo = 0,
+    motivo_desativacao = 'cobrava dois fatos na mesma frase: prazo e autoridade'
+WHERE id = 42;
+
+-- 2. substituto, quando houver. Ordem nova: a antiga fica com o desativado
+INSERT INTO ponto_chave (pergunta_id, ordem, descricao, fonte, essencial, substitui_id)
+SELECT p.id,
+       (SELECT MAX(ordem) + 1 FROM ponto_chave WHERE pergunta_id = p.id),
+       'cita que o prazo do ultrassecreto e de 25 anos',
+       'LAI art. 24, §1º, I', 1, 42
+FROM pergunta p WHERE p.codigo = 'Q2';
+```
+
+O substituto pode ficar para a conversa de gabarito — desativar sozinho já
+tira o ponto ruim de circulação. `v_ponto_desativado` lista o que foi
+desativado e, com `substituto_id IS NULL`, o que ainda falta reescrever:
+
+```sql
+SELECT pergunta, descricao, motivo_desativacao, vezes_cobrado, substituto_id
+FROM v_ponto_desativado WHERE substituto_id IS NULL;
+```
+
+O que o banco impõe sozinho, sem depender do seu protocolo:
+
+- `DELETE`, e `UPDATE` de `descricao`/`fonte`/`essencial`/`peso`, são bloqueados
+  em ponto já cobrado numa avaliação — a nota foi dada contra aquele texto.
+  `revisado` e `ordem` seguem editáveis.
+- desativar sem `motivo_desativacao` é recusado; `desativado_em` é carimbado
+  sozinho. Reativar (`ativo = 1`) limpa os dois — é o desfazer de um engano.
+- inserir ou desativar ponto de pergunta com resposta **sem nota** é recusado.
+
+Se todos os pontos de uma pergunta forem desativados, ela sai de `v_fila` até
+ganhar gabarito novo. É o comportamento certo: não há contra o que corrigir.
 
 ### Passo 6 — encerrar
 
@@ -209,8 +263,17 @@ Pegar os enunciados de uma seção:
 SELECT p.codigo, p.enunciado
 FROM pergunta p JOIN secao s ON s.id = p.secao_id
 WHERE s.codigo = '1.1' AND p.ativa = 1
-  AND NOT EXISTS (SELECT 1 FROM ponto_chave pc WHERE pc.pergunta_id = p.id)
+  AND NOT EXISTS (SELECT 1 FROM ponto_chave pc
+                  WHERE pc.pergunta_id = p.id AND pc.ativo = 1)
 ORDER BY p.numero;
+```
+
+Esta conversa é também onde se reescreve o que foi desativado numa sessão. O
+motivo registrado diz o que consertar:
+
+```sql
+SELECT pergunta, secao, descricao, motivo_desativacao
+FROM v_ponto_desativado WHERE substituto_id IS NULL;
 ```
 
 ### Escrever os pontos-chave
@@ -260,7 +323,8 @@ Use as views em vez de montar SQL na mão.
 |---|---|
 | `v_fila` | Perguntas devidas hoje, sem gabarito. Use para perguntar |
 | `v_fila_fraquezas` | As que o usuário já erra, pior primeiro. Também sem gabarito |
-| `v_gabarito` | Pontos-chave. **Só depois de gravar a resposta** |
+| `v_gabarito` | Pontos-chave ativos. **Só depois de gravar a resposta** |
+| `v_ponto_desativado` | Pontos tirados de circulação: motivo, quantas vezes já foram cobrados e se já ganharam substituto |
 | `v_calibracao` | Confiança × nota. `gap >= 2` = ilusão de saber |
 | `v_pontos_falhados` | Conceitos derrubados em perguntas diferentes |
 | `v_sugestao_ponto` | Pontos-chave com falha sistemática (≥3 avaliações, ≥60% de falha, ainda falhando na última tentativa): sugere pergunta dedicada ou remoção do ponto |
@@ -282,3 +346,6 @@ Use as views em vez de montar SQL na mão.
 - `resposta` e `avaliacao` são imutáveis por trigger. Errou a nota? Insira uma
   **nova** avaliação — a antiga fica no histórico e a divergência aparece em
   `v_auditoria` como `reavaliacao`.
+- `ponto_chave` já cobrado numa avaliação também é imutável, e não se apaga:
+  soft delete (`ativo = 0`) com motivo, mais substituto quando for o caso —
+  ver "Corrigir um ponto-chave inadequado".
