@@ -269,6 +269,26 @@ sobrou para hoje.
 | 2026-08-23 | 2 |
 | 2026-08-29 | 8 |
 
+Ainda no fechamento, confira se há pergunta arquivada pedindo para voltar:
+
+```sql
+SELECT * FROM v_reativacao_sugerida;
+```
+
+Vazia → silêncio, não comente. Com linhas → apresente a tabela e **pergunte**:
+
+| Seção | Título | Perguntas |
+|---|---|---|
+| 2.16 | Blockchain | 6 |
+| 2.18 | Inteligência Artificial | 4 |
+
+São perguntas boas que foram arquivadas como `fora_de_foco` por serem de outro
+concurso, e cujo alvo já acabou. **Nunca reative por conta própria — regra 8.**
+Aprovado, reative uma seção por vez (o `UPDATE` está na skill
+`incluir-pergunta`): elas voltam ao topo da fila, porque ficaram atrasadas
+durante o arquivamento, e uma seção por vez controla o tamanho do lote que fura
+a fila.
+
 Feche com o resumo da sessão, essa tabela, e ofereça o commit do banco:
 `git commit -m "sessão 11/08" estudo.db`
 
@@ -351,6 +371,8 @@ Use as views em vez de montar SQL na mão.
 | `v_fila_fraquezas` | As que o usuário já erra, pior primeiro. Também sem gabarito |
 | `v_gabarito` | Pontos-chave ativos. **Só depois de gravar a resposta** |
 | `v_ponto_desativado` | Pontos tirados de circulação: motivo, quantas vezes já foram cobrados e se já ganharam substituto |
+| `v_reativacao_sugerida` | Perguntas arquivadas como `fora_de_foco` cujo alvo já acabou, por seção. Consulte no Passo 6 — **sugira, nunca reative** |
+| `v_pergunta_desativada` | O arquivo de perguntas: tipo, motivo, alvo e o histórico que cada uma levou junto |
 | `v_calibracao` | Confiança × nota. `gap >= 2` = ilusão de saber |
 | `v_pontos_falhados` | Conceitos derrubados em perguntas diferentes |
 | `v_sugestao_ponto` | Pontos-chave com falha sistemática (≥3 avaliações, ≥60% de falha, ainda falhando na última tentativa): sugere pergunta dedicada ou remoção do ponto |

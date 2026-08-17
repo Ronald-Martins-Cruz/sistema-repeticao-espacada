@@ -1,6 +1,6 @@
 ---
 name: incluir-pergunta
-description: Protocolo para adicionar pergunta(s) nova(s) ao banco de estudo em estudo.db. Use quando o usuário quiser incluir, criar ou cadastrar uma pergunta nova (ou várias), vincular uma pergunta a uma prova real, ou desativar uma pergunta existente.
+description: Protocolo para adicionar pergunta(s) nova(s) ao banco de estudo em estudo.db. Use quando o usuário quiser incluir, criar ou cadastrar uma pergunta nova (ou várias), vincular uma pergunta a uma prova real, ou desativar/arquivar e reativar uma pergunta existente.
 ---
 
 # incluir-pergunta — ponteiro

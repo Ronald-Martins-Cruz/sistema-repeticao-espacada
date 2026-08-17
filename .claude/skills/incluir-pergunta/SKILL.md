@@ -1,6 +1,6 @@
 ---
 name: incluir-pergunta
-description: Protocolo para adicionar pergunta(s) nova(s) ao banco de estudo em estudo.db. Use quando o usuário quiser incluir, criar ou cadastrar uma pergunta nova (ou várias), vincular uma pergunta a uma prova real, ou desativar uma pergunta existente.
+description: Protocolo para adicionar pergunta(s) nova(s) ao banco de estudo em estudo.db. Use quando o usuário quiser incluir, criar ou cadastrar uma pergunta nova (ou várias), vincular uma pergunta a uma prova real, ou desativar/arquivar e reativar uma pergunta existente.
 ---
 
 # Incluir pergunta nova — leia antes de inserir
@@ -158,14 +158,86 @@ referência, não é importado por nada.
 
 ## Desativar uma pergunta
 
+`ativa = 0` sozinho **é recusado pelo banco**. Desativar exige dizer *por quê*,
+com um dos quatro valores de `tipo_desativacao`. A fronteira que essa lista
+compra é a única que importa depois: **volta sozinha × não volta**.
+
+| Valor | Volta? | Quando usar |
+|---|---|---|
+| **`fora_de_foco`** | **Sim** | Pergunta boa, mas é de outro concurso. O caso principal |
+| `desatualizada` | Não | Estava certa; o mundo mudou (lei alterada, tecnologia obsoleta) |
+| `defeituosa` | Não | Enunciado ambíguo ou errado |
+| `duplicada` | Não | Outra pergunta já cobre o mesmo |
+
+Sem essa distinção, `ativa = 0` misturaria "arquivei com carinho" e "isto está
+quebrado" no mesmo balde.
+
 ```sql
-UPDATE pergunta SET ativa = 0 WHERE codigo = 'Q94';
+-- boa pergunta, fora do foco atual: volta quando a DATAPREV 2026 passar
+UPDATE pergunta
+SET ativa = 0,
+    tipo_desativacao = 'fora_de_foco',
+    desativada_para_prova_id = (SELECT id FROM prova WHERE status = 'alvo_atual')
+WHERE codigo = 'Q174';
+
+-- pergunta ruim: não volta, e não precisa de alvo
+UPDATE pergunta
+SET ativa = 0,
+    tipo_desativacao = 'defeituosa',
+    motivo_desativacao = 'enunciado cobra dois conceitos e aceita duas leituras'
+WHERE codigo = 'Q175';
 ```
 
-Antes isso acontecia sozinho quando a pergunta sumia do `perguntas.md`; agora
-é sempre uma ação explícita. Histórico (`resposta`, `avaliacao`,
-`agendamento`) permanece intacto — a pergunta só sai de `v_fila`, `v_fila_fraquezas`
-e das contagens de `v_progresso`/`v_cobertura`, que filtram `ativa = 1`.
+**`fora_de_foco` exige `desativada_para_prova_id`** — o banco também recusa sem
+ele. "Fora do foco" não diz nada sem dizer foco de quê, e a sugestão de
+reativação só enxerga a pergunta por essa FK: nula, ela ficaria arquivada e
+invisível para sempre. Nos outros três a FK fica nula mesmo — não há alvo
+associado a "esta pergunta está errada". `motivo_desativacao` é texto livre e
+opcional, para o que o tipo não conta; `desativada_em` é carimbado sozinho.
+
+O que mais o banco impõe sozinho:
+
+- arquivar pergunta com resposta **sem nota** é recusado — grave a avaliação
+  antes. Seria uma linha permanente em `v_auditoria`, que só serve vazia.
+- zerar o `tipo_desativacao` depois, numa pergunta já arquivada, também é
+  recusado.
+
+Histórico (`resposta`, `avaliacao`, `agendamento`) permanece intacto — a
+pergunta só sai de `v_fila`, `v_fila_fraquezas` e das contagens de
+`v_progresso`/`v_cobertura`, que filtram `ativa = 1`. O arquivo se navega por
+`v_pergunta_desativada`:
+
+```sql
+SELECT codigo, secao, tipo_desativacao, motivo_desativacao, alvo, tentativas
+FROM v_pergunta_desativada;
+```
+
+## Reativar uma pergunta
+
+**Nunca por conta própria — só com aprovação explícita do usuário** (regra 8 do
+`CLAUDE.md`). Nenhum trigger distingue um `ativa = 1` autorizado de um não
+autorizado; esta é protocolo puro.
+
+`v_reativacao_sugerida` é quem levanta a mão, agrupada por seção, quando o alvo
+de um lote `fora_de_foco` acabou — seja porque a prova deixou de ser
+`alvo_atual`, seja porque a data de aplicação simplesmente passou:
+
+```sql
+SELECT * FROM v_reativacao_sugerida;
+```
+
+Aprovado, reative **uma seção por vez**:
+
+```sql
+UPDATE pergunta SET ativa = 1
+WHERE codigo IN (SELECT codigo FROM v_pergunta_desativada WHERE secao = '2.16');
+```
+
+Os quatro campos de desativação limpam sozinhos, por trigger. As perguntas
+voltam ao **topo** de `v_fila` sem código nenhum: `proxima_revisao` ficou
+congelada no passado durante o arquivamento e `v_fila` ordena por atraso. É o
+comportamento desejado — e é por isso que se reativa uma seção por vez, para
+controlar o tamanho do lote que fura a fila.
 
 ## Ao terminar
 
