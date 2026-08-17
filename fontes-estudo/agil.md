@@ -94,15 +94,25 @@ autogerenciado, normalmente **10 pessoas ou menos**. Três responsabilidades:
 
 ### 2.2 Eventos `Q148`
 
-A **Sprint** é o **contêiner** de todos os demais eventos: duração **fixa de um
-mês ou menos**, e uma nova começa **logo após** o fim da anterior (sem intervalos).
+São **cinco** eventos — e o primeiro **contém** os outros quatro. Enumerar
+apenas os quatro "reuniões" é resposta incompleta.
 
 | Evento | Propósito | Quem conduz | Timebox (Sprint de 1 mês) |
 |---|---|---|---|
+| **A Sprint** | **Contêiner** dos demais eventos; o ciclo em que se produz um **Incremento utilizável**. | Ninguém "conduz" — é o ciclo. Só o **PO** pode **cancelá-la**. | duração **fixa**, **≤ 1 mês**; a próxima começa **logo após** a anterior (**sem intervalo**) |
 | **Sprint Planning** | Define o **porquê** (Meta da Sprint), o **quê** e o **como** (Sprint Backlog). | Todo o Scrum Team, colaborativo | até **8 h** |
-| **Daily Scrum** | Inspecionar o progresso rumo à Meta e **adaptar o plano do dia**. | Os **Developers** (PO/SM só participam se trabalham no Sprint Backlog) | **15 min**, diário |
+| **Daily Scrum** | Inspecionar o progresso rumo à Meta e **adaptar o plano do dia**; identificar impedimentos. | Os **Developers** (PO/SM só participam se trabalham no Sprint Backlog) | **15 min**, diário, mesmo horário e local |
 | **Sprint Review** | Inspecionar o **resultado** com os stakeholders e ajustar o Product Backlog. **Sessão de trabalho**, não mera apresentação. | Scrum Team + stakeholders | até **4 h** |
-| **Sprint Retrospective** | Planejar **melhorias** de qualidade/eficácia (pessoas, processos, ferramentas, Definição de Pronto). **Encerra a Sprint**. | Só o **Scrum Team** | até **3 h** |
+| **Sprint Retrospective** | Planejar **melhorias** de qualidade/eficácia (pessoas, **interações**, processos, ferramentas, Definição de Pronto). **Encerra a Sprint**. | Só o **Scrum Team** | até **3 h** |
+
+> Para Sprints mais curtas, os eventos são "usualmente mais curtos" — o Guia
+> **não** dá fórmula proporcional. Os timeboxes acima são **máximos** para a
+> Sprint de um mês.
+>
+> **Retrospective ≠ "pontos positivos e negativos".** Essa é a versão
+> folclórica. O Guia fala em **planejar formas de aumentar qualidade e
+> eficácia** sobre quatro eixos — pessoas, interações, processos, ferramentas —
+> mais a **Definição de Pronto**.
 
 > **Mudança-chave do Guia 2020:** os eventos **pertencem ao Scrum Team**. O SM
 > **garante** que ocorram e respeitem o timebox, mas **não os "comanda"**. Não
@@ -110,17 +120,35 @@ mês ou menos**, e uma nova começa **logo após** o fim da anterior (sem interv
 
 ### 2.3 Artefatos e seus compromissos `Q149`
 
-Cada artefato tem **um compromisso** que lhe dá foco e mede o progresso:
+São **três** artefatos — nem dois, nem quatro. Cada um tem **um compromisso**
+que lhe dá foco e mede o progresso:
 
 | Artefato | O que é | Responsável | Compromisso |
 |---|---|---|---|
-| **Product Backlog** | Lista **ordenada e emergente** de tudo que o produto precisa; **única fonte de trabalho** do time. | **Product Owner** (ordena e gerencia) | **Meta do Produto** |
-| **Sprint Backlog** | **Meta da Sprint** (porquê) + itens selecionados (o quê) + plano (como). Plano **feito por e para os Developers**. | **Developers** | **Meta da Sprint** |
-| **Incremento** | Passo concreto rumo à Meta do Produto; soma-se aos anteriores. | Scrum Team | **Definição de Pronto** |
+| **Product Backlog** | Lista **ordenada e emergente** de tudo que o produto precisa; **única fonte de trabalho** do time. **Independe de Sprint** — atravessa todas. | **Product Owner** — ordena e gerencia; pode **delegar a execução**, nunca a responsabilidade | **Meta do Produto** |
+| **Sprint Backlog** | Três coisas: **Meta da Sprint** (o porquê) + **itens selecionados** (o quê) + **plano acionável de entrega** (o como). Plano **feito por e para os Developers**, atualizado ao longo da Sprint. | **Developers** — não o time todo, não o PO | **Meta da Sprint** |
+| **Incremento** | Passo concreto rumo à Meta do Produto; **soma-se** aos anteriores. Item começado e não concluído **não é** Incremento. | Scrum Team | **Definição de Pronto** |
 
-- **Sprint Goal / Meta da Sprint** **não é um artefato à parte**: é o
-  **compromisso do Sprint Backlog**. É criada por **todo o Scrum Team** na
-  Planning e é **compromisso dos Developers** ao longo da Sprint.
+Os **três compromissos** — é aqui que a banca troca os nomes de lugar. Note que
+**nenhum deles é um artefato**: cada um **pertence a** um artefato.
+
+| Compromisso | Definição | De quem é |
+|---|---|---|
+| **Meta do Produto** (*Product Goal*) | Objetivo de **longo prazo** do produto; o alvo contra o qual o time planeja. Vive **dentro do** Product Backlog. | O **PO** desenvolve e comunica explicitamente |
+| **Meta da Sprint** (*Sprint Goal*) | Objetivo **único** da Sprint; dá **coerência e foco** ao Incremento. **Não é artefato** — é o compromisso do **Sprint Backlog**. | **Criada por todo o Scrum Team** na Planning; é **compromisso dos Developers** |
+| **Definição de Pronto** (*DoD*) | Estado formal de **qualidade** que o Incremento precisa atingir para ser **utilizável**. | Se for **padrão da organização**, é o mínimo obrigatório; se não houver, o **Scrum Team** cria a sua |
+
+**Meta da Sprint — as quatro inversões da FGV:**
+
+- ❌ *"definida pelo PO"* / ❌ *"pelo PO junto aos stakeholders"* → é de **todo o
+  Scrum Team**; **stakeholders não participam** da criação.
+- ❌ *"é o quarto artefato"* → é **compromisso** do Sprint Backlog.
+- ❌ *"se adapta durante a Sprint"* → o que se renegocia com o PO é o **escopo do
+  Sprint Backlog**, e explicitamente **sem afetar a Meta**. Se a Meta ficar
+  **obsoleta**, a saída não é adaptá-la: é **cancelar a Sprint** — e **só o PO
+  cancela**.
+- ❌ *"Sprint Backlog é do time todo"* → é dos **Developers**. Quem é do time
+  todo é a **Meta da Sprint**. As duas atribuições vivem trocadas.
 
 ---
 
@@ -285,6 +313,14 @@ O que aconteceria em cada alternativa **errada**:
 - ⚠️ **Item não concluído não é Incremento** — é desperdício, não "adiantamento".
 - ⚠️ **Só o PO cancela a Sprint**, e apenas se a **Meta ficou obsoleta**.
 - ⚠️ **Meta da Sprint** é compromisso do **Sprint Backlog**, não artefato à parte.
+- ⚠️ **Meta da Sprint é criada por todo o Scrum Team** — não pelo PO, com ou sem
+  stakeholders. Já o **Sprint Backlog é dos Developers**, não do time todo.
+- ⚠️ **A Meta da Sprint não muda durante a Sprint** — o que se renegocia é o
+  **escopo**.
+- ⚠️ **São 5 eventos** (a Sprint é um deles, contendo os outros 4) e **3
+  artefatos** (Meta da Sprint não é o quarto).
+- ⚠️ **Decore os timeboxes:** Planning **8 h** · Daily **15 min** · Review
+  **4 h** · Retrospective **3 h**.
 - ⚠️ **Royce não pregou a cascata pura** — ele já apontava a iteração.
 
 ---

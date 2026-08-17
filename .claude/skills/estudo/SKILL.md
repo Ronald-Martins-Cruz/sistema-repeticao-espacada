@@ -243,7 +243,33 @@ UPDATE sessao SET encerrada_em = datetime('now','localtime') WHERE id = 1;
 SELECT * FROM v_auditoria;   -- tem que vir vazia
 ```
 
-Feche com o resumo da sessão e ofereça o commit do banco:
+**Sempre informe os próximos agendamentos ao fechar a sessão**, em tabela — uma
+linha por data, com a quantidade de revisões daquele dia. É o que o SM-2 acabou
+de reagendar; sem isso o usuário não sabe qual é a carga dos próximos dias.
+
+```sql
+SELECT a.proxima_revisao AS data, COUNT(*) AS revisoes
+FROM agendamento a
+JOIN pergunta p ON p.id = a.pergunta_id
+WHERE p.ativa = 1
+  AND a.proxima_revisao >= date('now','localtime')
+  AND EXISTS (SELECT 1 FROM ponto_chave pc
+              WHERE pc.pergunta_id = p.id AND pc.ativo = 1)
+GROUP BY a.proxima_revisao
+ORDER BY a.proxima_revisao;
+```
+
+O filtro repete o de `v_fila` de propósito: só conta pergunta ativa e com
+gabarito, que é a que vai de fato ser servida. `>= hoje` inclui o que ainda
+sobrou para hoje.
+
+| Data | Revisões |
+|---|---|
+| 2026-08-18 | 6 |
+| 2026-08-23 | 2 |
+| 2026-08-29 | 8 |
+
+Feche com o resumo da sessão, essa tabela, e ofereça o commit do banco:
 `git commit -m "sessão 11/08" estudo.db`
 
 ## Preparar o gabarito de uma seção
