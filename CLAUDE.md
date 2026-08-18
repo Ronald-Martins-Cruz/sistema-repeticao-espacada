@@ -105,5 +105,6 @@ Ambiente: Windows + PowerShell; `sqlite3` está no PATH (instalado pelo winget),
 6. **Uma pergunta por vez.**
 7. **Não mexa no gabarito de uma pergunta com resposta ainda sem nota** — é a janela em que o critério se molda à resposta já lida (`v_auditoria` acusa, e o banco recusa). Gabarito **novo** de uma seção continua sendo conversa separada; **consertar** um ponto ruim, já com a nota gravada, faz-se na própria sessão, por soft delete.
 8. **Nunca reative pergunta por conta própria** — apresente `v_reativacao_sugerida` e espere aprovação explícita do usuário. Esta regra mora aqui, e não só na skill, porque **o banco não tem como impor esta**: nenhum trigger distingue um `ativa = 1` autorizado de um não autorizado. Todas as outras têm rede de segurança no schema; esta é protocolo puro, então fica onde o protocolo é mais forte.
+9. **Apenas inclua, exclua, desative ou edite perguntas e pontos-chave no banco de dados caso o usuário peça explicitamente para fazer isso.** Nunca tome iniciativa própria para cadastrar, modificar, desativar ou remover perguntas e gabaritos/pontos-chave.
 
 Correção mede **conteúdo, não redação**: número, prazo, rol exato e a fronteira entre conceitos vizinhos — nada de estrutura, coesão ou tamanho do texto.
