@@ -199,3 +199,34 @@ fora do recorte da ementa contínua, sem item para associar.
 |---|:--:|---|
 |36|1|Classificação da informação na LAI (Lei nº 12.527/2011): graus e prazos de sigilo (ultrassecreto, secreto e reservado), publicidade automática ao fim do prazo ou do evento — sem necessidade de nova decisão —, desclassificação e redução de prazo por reavaliação, e a vedação absoluta de restringir acesso a informação sobre violação de direitos humanos por agentes públicos|
 |37|2|Invasão de dispositivo informático (art. 2º da Lei nº 12.737/2012 = art. 154-A do CP): a ação penal é pública (condicionada à representação, ou incondicionada contra a administração pública), nunca por queixa-crime; o crime independe de o dispositivo estar conectado à rede e de haver efetiva adulteração; o aumento de pena por sujeito passivo é de um terço à metade e alcança um rol taxativo de autoridades|
+
+
+### Erros de Língua Portuguesa
+
+A ementa contínua **não cobre** esta disciplina — ela começa na Legislação
+(item 1 = Lei nº 12.527/2011). A coluna abaixo usa, portanto, a **numeração
+oficial de Língua Portuguesa** do Anexo I do edital de 2026
+([EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](../../editais/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)),
+com o subitem quando ele delimita melhor o assunto.
+
+|Questão|Item da ementa|Descrição|
+|---|:--:|---|
+|4|1|Interpretação de frase: separar **paradoxo** de **efemeridade**. Em "A felicidade é tão oposta à vida, que estando nela, a gente esquece que vive", a oposição é só aparente — estar feliz e ter consciência de viver se excluem, o que é uma relação paradoxal; a frase não fala de **duração** da felicidade, então "caráter efêmero" não se sustenta|
+|5|5.6|Regência verbal: `obedecer` é transitivo indireto (obedecer **a** leis); `simpatizar` não é pronominal (simpatizei **com**, não "me simpatizei"); `residir` pede **em** (residem **na** rua, não "à rua"); `pagar` é quem se paga é indireto (paguei-**lhe**, não "paguei-o"); `lembrar` só dispensa preposição sem pronome (lembra **o** aniversário) — com **de** exige o pronome (lembra-**se do** aniversário)|
+|6|6.1|Significação das palavras — equivalência entre **locução adjetiva** e **adjetivo**. `irascível` é quem se irrita **com** facilidade, o oposto do enunciado (o correto seria "pacífico"/"imperturbável"). Os demais pares estão certos: descontente, indelével (que não se apaga), indistinguível, imiscível|
+|9|4.1|Noção semântica do conector: `de modo que` introduz **consequência**, não causa. Em "recostara-se... **de modo que** seu gracioso vulto imergia-se na plena luz", o que vem depois é o **efeito** do que vem antes — inverter isso é ler causa onde há consequência|
+|10|5.1|Emprego das classes de palavras: verbo que indica **estado** contra verbo que indica **permanência no espaço**. `viver` + adjetivo é verbo de ligação atribuindo estado ao sujeito ("devia **viver** bem aborrecida da sorte"); `permanecer`/`ficar` seguidos de lugar ("defronte da porta", "à janela") indicam **situação/localização**, não estado|
+
+
+### Erros de Língua Inglesa
+
+A ementa de Língua Inglesa tem um **único item**: "Compreensão de textos em
+língua inglesa e itens gramaticais relevantes para o entendimento dos sentidos
+dos textos". Todos os erros caem nele, então a coluna de item é sempre `1` — o
+que discrimina de fato é a **habilidade** cobrada, na coluna própria.
+
+|Questão|Item da ementa|Habilidade|Descrição|
+|---|:--:|:--:|---|
+|14|1|Ideia global|Identificar a informação que o texto **inteiro** veicula, não um detalhe isolado. O TEXT é o anúncio/resenha de um guia dirigido tanto a recém-formados quanto a quem já tem experiência ("or even have 20 years of work experience") — daí "despite your experience". A alternativa marcada acrescenta `abroad` (trabalhar no exterior), que o texto nunca menciona: detalhe inventado invalida a opção inteira|
+|17|1|Marcadores discursivos|Classificar o valor semântico do conector. O `and` em "find out why your current job is not satisfying… **and** turn your career around" é **aditivo** → equivale a `moreover`. `meanwhile` marcaria **simultaneidade temporal**, que não está em jogo. Mapa dos distratores: `hence` = consequência, `whereas` = contraste, `unless` = condição negativa, `meanwhile` = tempo|
+|24|1|Classe gramatical|`browse` serve como verbo **e** substantivo; a lacuna é que decide. Depois de artigo/determinante o encaixe pede **substantivo** — "worth **a** browse". As outras lacunas vêm depois de sujeito ou de `to`/preposição e pedem **verbo** ("I usually browse the internet", "biographies for him to browse over")|
