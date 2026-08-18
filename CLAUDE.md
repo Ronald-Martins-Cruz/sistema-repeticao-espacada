@@ -10,7 +10,7 @@ O repositório também acumula provas de **outras bancas e concursos** (BACEN, C
 
 ## Arquivos
 
-Na raiz ficam duas coisas: o **sistema de estudo** em si (banco, seções) e o **pipeline de leitura em PDF** (`fontes-estudo/`, `fontes-gabaritos/`, `pdf/`). O material de referência da banca mora em `docs/`, e o código auxiliar em `scripts/`.
+Na raiz ficam duas coisas: o **sistema de estudo** em si (banco, seções) e o **pipeline de leitura em PDF** (`fontes-estudo/`, `fontes-gabaritos/`, `pdf/`). O material de referência da banca mora em `docs/`, o cronograma do concurso-alvo em `planejamento/`, e o código auxiliar em `scripts/`.
 
 | Arquivo | Papel |
 |---|---|
@@ -20,6 +20,7 @@ Na raiz ficam duas coisas: o **sistema de estudo** em si (banco, seções) e o *
 | `estudo.db` | Banco SQLite. **Versionado** — é o estado vivo e o backup real, e carrega o **schema completo** junto com perguntas, gabaritos e histórico. Pergunta nova entra por `INSERT` direto (skill `incluir-pergunta`), não por um pipeline de importação. |
 | `AGENTS.md` | Só aponta para este arquivo (`Leia @CLAUDE.md`). **Não alterar.** Não confundir com a pasta `.agents/` acima. |
 | `TODO.md` | Pendências conhecidas do projeto — confira antes de assumir que algo já está resolvido. |
+| `planejamento/pt1-dataprev.md` | **Cronograma do alvo atual** e a **ementa contínua**. Duas partes: (1) a tabela de planejamento — assunto, item do edital, se cobre o item inteiro ou só um pedaço, data prevista, data em que foi de fato estudado e a profundidade pretendida (🟢 aprofundado, 🟡 parcial, 🔴 raso); (2) o Anexo I do edital de 2026 (Legislação + Módulo II inteiro, 62 itens) transcrito com uma **numeração única e corrida, que não reinicia por disciplina** — é a ela que outros arquivos se referem ao dizer "ementa contínua" (ex.: `docs/provas/dataprev-2024/minhas-respostas.md`). Traz também o peso de cada disciplina na prova. Meta: ementa toda estudada até **11/09/2026**; prova em **11/10/2026**. A numeração contínua é **conveniência interna** — em qualquer coisa que dialogue com o edital ou com recurso, use a oficial, que está em `docs/editais/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md`. **Não versionado** (`.gitignore`): a regra `planejamento` casa em qualquer nível, então nem o `.md` nem as marcações em `scripts/mdpdf/marcacoes/planejamento/` vão para o git, embora o `mdpdf` gere o PDF de leitura normalmente. |
 | `fontes-estudo/*.md` | Textos de estudo por seção, gerados por IA, que originam os PDFs de leitura. **Não é fonte primária** — não usar para escrever gabarito. |
 | `fontes-gabaritos/*/` | Fontes primárias (PDFs, HTML) usadas para escrever os `ponto_chave` de cada seção, organizadas por conceito. Para **ler** essas fontes, use a extração em `md/fontes-gabaritos/` (mesma árvore, em markdown). Fluxo de montagem: (1) pedir a um agente fontes que ele consiga de fato acessar; (2) conferir esse acesso em uma nova janela de contexto; (3) nessa mesma janela, salvar as fontes confirmadas em `fontes-gabaritos/nome_do_conceito/`; (4) pedir a um agente para gerar os gabaritos, em outra janela de contexto nova — separada da sessão de estudo (ver regra 7). |
 | `scripts/mdpdf/marcacoes/` | Grifos, traços de caneta e notas feitos nos PDFs pelo Microsoft Edge, capturados pelo `mdpdf`. **É o que vai para o git** — o backup real das marcações (ver `.gitignore`). |
