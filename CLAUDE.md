@@ -14,7 +14,7 @@ Na raiz ficam duas coisas: o **sistema de estudo** em si (banco, seções) e o *
 
 | Arquivo | Papel |
 |---|---|
-| `.claude/skills/estudo/` | **Manual operacional.** Passo a passo das sessões, régua de notas, ordem correção→confiança→revelação. Leia primeiro. |
+| `.claude/skills/estudo/` | **Manual operacional.** Passo a passo das sessões, régua de notas, ordem correção→nota→revelação. Leia primeiro. |
 | `.claude/skills/incluir-pergunta/` | Protocolo para inserir pergunta nova (ou várias) direto por SQL, e para vincular perguntas a provas reais. |
 | `.agents/` | **Só ponteiros**, para ferramentas de IA que seguem a convenção `AGENTS.md`/`.agents/` em vez de `.claude/skills/`. Cada `.agents/<skill>/SKILL.md` tem o `description` da skill (o que a torna descobrível) e uma linha mandando ler o arquivo real em `.claude/skills/<skill>/SKILL.md`. **Conteúdo de skill se edita só no `.claude/`** — se criar uma skill nova, crie o ponteiro correspondente aqui. Ignorada pelo `mdpdf`: o PDF de cada skill sai do arquivo real em `.claude/skills/`. |
 | `estudo.db` | Banco SQLite. **Versionado** — é o estado vivo e o backup real, e carrega o **schema completo** junto com perguntas, gabaritos e histórico. Pergunta nova entra por `INSERT` direto (skill `incluir-pergunta`), não por um pipeline de importação. |
@@ -78,9 +78,9 @@ Schema mora dentro do próprio `estudo.db` — leia com `sqlite3 estudo.db .sche
 - `agendamento` — estado SM-2 por pergunta (`facilidade`, `intervalo_dias`, `proxima_revisao`). **Nunca escrever à mão.**
 - `config` — pares chave/valor de configuração solta, hoje sem uso ativo.
 
-**Views** (use-as em vez de montar SQL na mão): `v_fila` e `v_fila_fraquezas` (perguntar — não expõem gabarito), `v_gabarito` (pontos ativos, só após gravar a resposta), `v_ponto_desativado` (pontos tirados de circulação, com motivo e substituto), `v_pergunta_desativada` (o arquivo de perguntas: tipo, motivo, alvo), `v_reativacao_sugerida` (perguntas `fora_de_foco` cujo alvo acabou, por seção — consultar no fim da sessão), `v_calibracao`, `v_progresso`, `v_desempenho_secao`, `v_cobertura`, `v_pontos_falhados`, `v_estatistica_pergunta`, `v_auditoria` (deve viver vazia), `v_peso_secao` (peso de cada seção nas provas de referência), `v_alvos` (provas com `status = 'alvo_atual'` e dias restantes), `v_catalogo` (o banco inteiro, sem gabarito exposto). Detalhe de cada uma em `docs/doc-setup/schema.md`.
+**Views** (use-as em vez de montar SQL na mão): `v_fila` e `v_fila_fraquezas` (perguntar — não expõem gabarito), `v_gabarito` (pontos ativos, só após gravar a resposta), `v_ponto_desativado` (pontos tirados de circulação, com motivo e substituto), `v_pergunta_desativada` (o arquivo de perguntas: tipo, motivo, alvo), `v_reativacao_sugerida` (perguntas `fora_de_foco` cujo alvo acabou, por seção — consultar no fim da sessão), `v_progresso`, `v_desempenho_secao`, `v_cobertura`, `v_pontos_falhados`, `v_estatistica_pergunta`, `v_auditoria` (deve viver vazia), `v_peso_secao` (peso de cada seção nas provas de referência), `v_alvos` (provas com `status = 'alvo_atual'` e dias restantes), `v_catalogo` (o banco inteiro, sem gabarito exposto). Detalhe de cada uma em `docs/doc-setup/schema.md`.
 
-**Triggers** garantem os invariantes: `trg_sm2` reagenda ao inserir avaliação; `resposta` e `avaliacao` são imutáveis e não deletáveis; confiança só entra depois da nota; toda pergunta nova ganha um `agendamento`; `ponto_chave` já cobrado é imutável e indeletável (desative com motivo), e mexer no gabarito de pergunta com resposta ainda sem nota é recusado; desativar `pergunta` exige `tipo_desativacao` (e `desativada_para_prova_id` no `fora_de_foco`), é recusado com resposta sem nota, carimba `desativada_em` e limpa tudo ao reativar.
+**Triggers** garantem os invariantes: `trg_sm2` reagenda ao inserir avaliação; `resposta` e `avaliacao` são imutáveis e não deletáveis; toda pergunta nova ganha um `agendamento`; `ponto_chave` já cobrado é imutável e indeletável (desative com motivo), e mexer no gabarito de pergunta com resposta ainda sem nota é recusado; desativar `pergunta` exige `tipo_desativacao` (e `desativada_para_prova_id` no `fora_de_foco`), é recusado com resposta sem nota, carimba `desativada_em` e limpa tudo ao reativar.
 
 ## Comandos
 
@@ -99,7 +99,7 @@ Ambiente: Windows + PowerShell; `sqlite3` está no PATH (instalado pelo winget),
 ## Regras invioláveis
 
 1. **Nunca mostre o gabarito antes da resposta** — enuncie a partir de `v_fila`.
-2. **Ordem fixa:** corrigir → gravar nota → perguntar confiança → revelar.
+2. **Ordem fixa:** corrigir → gravar nota → revelar.
 3. **Grave a resposta na íntegra**, sem editar, resumir ou corrigir.
 4. **"Não sei" é nota 0 registrada**, nunca pergunta pulada.
 5. **Não invente perguntas** nem escreva em `agendamento` — o SM-2 é automático.

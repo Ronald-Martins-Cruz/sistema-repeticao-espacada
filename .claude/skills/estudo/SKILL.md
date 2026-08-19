@@ -1,6 +1,6 @@
 ---
 name: estudo
-description: Protocolo do sistema de estudo por perguntas discursivas em estudo.db (concurso FGV/DATAPREV). Use quando o usuário quiser estudar, revisar, responder perguntas, retomar a fila do dia, ver o progresso ou a calibração, e também quando quiser preparar os gabaritos (pontos-chave) de uma seção. Leia antes de enunciar qualquer pergunta.
+description: Protocolo do sistema de estudo por perguntas discursivas em estudo.db (concurso FGV/DATAPREV). Use quando o usuário quiser estudar, revisar, responder perguntas, retomar a fila do dia, ver o progresso, e também quando quiser preparar os gabaritos (pontos-chave) de uma seção. Leia antes de enunciar qualquer pergunta.
 ---
 
 # Protocolo de estudo — leia antes de fazer qualquer pergunta
@@ -52,9 +52,9 @@ O que isso muda na sua conduta:
    `v_fila` ou `v_fila_fraquezas` — elas não expõem nenhuma coluna de
    `ponto_chave`. Só consulte `v_gabarito` depois que a resposta estiver gravada
    em `resposta`.
-2. **Ordem fixa: corrigir → gravar nota → perguntar confiança → revelar.** Não
-   revele a nota antes de perguntar a confiança. O banco recusa gravar confiança
-   em resposta que ainda não tem nota.
+2. **Ordem fixa: corrigir → gravar nota → revelar.** A nota se grava antes de
+   revelar porque a avaliação é imutável: uma vez no banco, ela não pode ser
+   ajustada depois de ver a reação do usuário.
 3. **Grave a resposta na íntegra**, sem resumir, corrigir ortografia ou
    reescrever. É o texto do usuário que vai ser reavaliado meses depois.
 4. **"Não sei" é nota 0 registrada, nunca pergunta pulada.** Resposta em branco é
@@ -153,26 +153,10 @@ O trigger SM-2 reagenda a pergunta sozinho. Você não toca em `agendamento`.
 
 Se o gabarito usado ainda estiver com `revisado = 0`, avise ao revelar.
 
-### Passo 4 — perguntar a confiança
-
-Só agora, e **sem ter dito a nota**:
-
-> De 1 a 5, quanto você confia que acertou essa?
-
-```sql
-UPDATE resposta SET confianca = 4 WHERE id = 12;
-```
-
-Se o banco recusar, é porque a nota ainda não foi gravada — volte ao passo 3. A
-ordem existe porque, se você souber a confiança antes de corrigir, você ancora:
-"ele disse 5, deve estar certo". Com a nota já gravada e imutável, ancorar fica
-impossível, não apenas desaconselhado.
-
-### Passo 5 — revelar
+### Passo 4 — revelar
 
 Mostre, nesta ordem: a nota e o veredito; o que faltou, ponto a ponto, com a
-`fonte` de cada omissão; e a resposta modelo. Se `confianca - nota >= 2`, diga
-isso explicitamente — é onde o usuário perde ponto na prova sem perceber.
+`fonte` de cada omissão; e a resposta modelo.
 
 Depois, cheque se algum ponto-chave dessa pergunta acabou de cruzar o limiar de
 falha sistemática:
@@ -236,7 +220,7 @@ O que o banco impõe sozinho, sem depender do seu protocolo:
 Se todos os pontos de uma pergunta forem desativados, ela sai de `v_fila` até
 ganhar gabarito novo. É o comportamento certo: não há contra o que corrigir.
 
-### Passo 6 — encerrar
+### Passo 5 — encerrar
 
 ```sql
 UPDATE sessao SET encerrada_em = datetime('now','localtime') WHERE id = 1;
@@ -371,9 +355,8 @@ Use as views em vez de montar SQL na mão.
 | `v_fila_fraquezas` | As que o usuário já erra, pior primeiro. Também sem gabarito |
 | `v_gabarito` | Pontos-chave ativos. **Só depois de gravar a resposta** |
 | `v_ponto_desativado` | Pontos tirados de circulação: motivo, quantas vezes já foram cobrados e se já ganharam substituto |
-| `v_reativacao_sugerida` | Perguntas arquivadas como `fora_de_foco` cujo alvo já acabou, por seção. Consulte no Passo 6 — **sugira, nunca reative** |
+| `v_reativacao_sugerida` | Perguntas arquivadas como `fora_de_foco` cujo alvo já acabou, por seção. Consulte no Passo 5 — **sugira, nunca reative** |
 | `v_pergunta_desativada` | O arquivo de perguntas: tipo, motivo, alvo e o histórico que cada uma levou junto |
-| `v_calibracao` | Confiança × nota. `gap >= 2` = ilusão de saber |
 | `v_pontos_falhados` | Conceitos derrubados em perguntas diferentes |
 | `v_sugestao_ponto` | Pontos-chave com falha sistemática (≥3 avaliações, ≥60% de falha, ainda falhando na última tentativa): sugere pergunta dedicada ou remoção do ponto |
 | `v_desempenho_secao` | Média e volume por seção, ordenado pela pior |

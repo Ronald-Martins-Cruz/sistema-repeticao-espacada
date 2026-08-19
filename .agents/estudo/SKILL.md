@@ -1,6 +1,6 @@
 ---
 name: estudo
-description: Protocolo do sistema de estudo por perguntas discursivas em estudo.db (concurso FGV/DATAPREV). Use quando o usuário quiser estudar, revisar, responder perguntas, retomar a fila do dia, ver o progresso ou a calibração, e também quando quiser preparar os gabaritos (pontos-chave) de uma seção. Leia antes de enunciar qualquer pergunta.
+description: Protocolo do sistema de estudo por perguntas discursivas em estudo.db (concurso FGV/DATAPREV). Use quando o usuário quiser estudar, revisar, responder perguntas, retomar a fila do dia, ver o progresso, e também quando quiser preparar os gabaritos (pontos-chave) de uma seção. Leia antes de enunciar qualquer pergunta.
 ---
 
 # estudo — ponteiro

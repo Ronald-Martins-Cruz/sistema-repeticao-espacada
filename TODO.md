@@ -9,7 +9,8 @@
 ## Não crítico
 
 - [X] Remover ideia de "pegadinha" ou "como isso vira alternativa errada" das respostas
-- [] Rever uso de confiança (até se deve ser utilizado)
+- [X] Rever uso de confiança (até se deve ser utilizado)
+  (resolvido por remoção: custava um turno inteiro do usuário por pergunta e nunca mudou uma decisão de estudo — nem a `v_calibracao` nem o `gap_medio` foram usados para escolher o que revisar. Saíram `resposta.confianca` e `resposta.confianca_em`, os triggers `trg_confianca_depois_da_nota` e `trg_confianca_timestamp`, a view `v_calibracao` inteira, a coluna `gap_medio` de `v_desempenho_secao` e o ramo `confianca_antes_da_nota` de `v_auditoria`. A confiança declarada nas 124 respostas já gravadas foi junto — não é desativação reversível. O protocolo passou de quatro tempos para três: corrigir → gravar nota → revelar, e o Passo 4 da skill `estudo` deixou de existir.)
 - [X] Criar método simples para incluir ou excluir ponto chave de resposta de pergunta
   (feito: `ponto_chave` ganhou soft delete — `ativo`, `motivo_desativacao`, `desativado_em`, `substitui_id` — mais `v_ponto_desativado` e os triggers `trg_ponto_chave_*`. Aplicar a sugestão agora é `UPDATE ponto_chave SET ativo = 0, motivo_desativacao = '...'` na própria sessão, depois da nota; o passo a passo está em "Corrigir um ponto-chave inadequado" na skill `estudo`. A regra 7 deixou de proibir mexer no gabarito durante a sessão e passou a proibir só a janela resposta-sem-nota, que o banco recusa sozinho.)
 - [X] Registrar o motivo ao desativar uma pergunta, como já se faz no ponto-chave
