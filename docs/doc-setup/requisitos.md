@@ -57,6 +57,28 @@ Fora o `STRICT`, o schema não pede nada exótico: `INSERT ... ON CONFLICT DO
 UPDATE` (3.24+), `julianday()`, views, triggers e `PRAGMA foreign_keys` são
 todos bem mais antigos que o piso.
 
+### `~/.sqliterc` — as chaves estrangeiras dependem dele
+
+Fora do repositório, e por isso fácil de esquecer numa máquina nova. `STRICT`
+está no schema e vale sempre; `foreign_keys` **não** — é pragma de conexão,
+nasce desligado e não fica gravado no arquivo. Sem ele, um `INSERT` apontando
+para um pai inexistente entra calado. Foi assim que 7 linhas órfãs entraram em
+`avaliacao_ponto` (corrigidas em 19/08/2026).
+
+O arquivo mora em `C:\Users\<voce>\.sqliterc` e tem uma linha útil:
+
+```sql
+PRAGMA foreign_keys = ON;
+```
+
+Cobre **só o shell `sqlite3`**. Script em Python, GUI ou qualquer outro cliente
+ignora o `.sqliterc` e precisa ligar o pragma na mão. Conferir:
+
+```sh
+sqlite3 estudo.db "PRAGMA foreign_keys;"   # tem que devolver 1
+sqlite3 estudo.db "PRAGMA foreign_key_check;"   # tem que sair vazio
+```
+
 ### Como o `sqlite3` chegou aqui
 
 Nesta máquina veio pelo winget e está no PATH:
@@ -177,7 +199,8 @@ marcações já feitas a serem reancoradas.
 |---|---|
 | `unable to open database file` ao abrir `estudo.db` | O banco não existe ou está fora da raiz do repositório. Restaure do git: `git restore estudo.db`. |
 | `near "STRICT": syntax error` ao abrir o banco | SQLite anterior ao 3.37. Atualize o `sqlite3`. |
-| `FOREIGN KEY constraint failed` em escrita que parecia certa | Provavelmente faltou `PRAGMA foreign_keys = ON;` na sessão — as chaves só passam a valer depois dele. |
+| `FOREIGN KEY constraint failed` em escrita que parecia certa | O pragma está ligado e a escrita aponta para um pai que não existe. Conserte o id — **não** desligue o pragma para o erro sumir. |
+| Escrita com id de pai errado **não** dá erro nenhum | O contrário do caso acima, e o perigoso: `PRAGMA foreign_keys` está em 0 e a linha órfã entrou calada. Confira com `PRAGMA foreign_key_check;` e veja a seção do `~/.sqliterc`. |
 | `ModuleNotFoundError: No module named 'pymupdf'` (ou `markdown_it`, ou `websocket`) | O pacote correspondente — rode o `pip install` acima. |
 | `RuntimeError: msedge.exe não encontrado. Procurei em: ...` | O Edge não está nos caminhos esperados. |
 | `RuntimeError: o Edge não subiu em 30s` | O Edge existe mas não abriu a porta de depuração; costuma ser antivírus ou política corporativa bloqueando. |

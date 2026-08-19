@@ -66,7 +66,7 @@ Estas quatro últimas pastas — `fgv/`, `bacen/`, `cefet/` e `TCE-RJ/` — est�
 
 ## Modelo de dados
 
-Schema mora dentro do próprio `estudo.db` — leia com `sqlite3 estudo.db .schema`. Tudo é `STRICT` e `PRAGMA foreign_keys = ON`.
+Schema mora dentro do próprio `estudo.db` — leia com `sqlite3 estudo.db .schema`. Tudo é `STRICT`: isso está gravado no schema e vale sempre, em qualquer cliente. As **chaves estrangeiras não têm essa garantia** — `foreign_keys` é pragma de conexão, nasce desligado e não fica no arquivo, então uma escrita sem ele insere linha órfã calada (foi assim que 7 entraram em `avaliacao_ponto`, corrigidas em 19/08/2026). O `~/.sqliterc` liga o pragma em toda sessão do shell `sqlite3`, mas isso cobre só esse cliente: **quem escrever por outro caminho tem que ligar na mão** — `PRAGMA foreign_keys = ON;` antes do `BEGIN`.
 
 **Tabelas**
 
