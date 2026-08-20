@@ -2,7 +2,8 @@
 
 Fontes para escrever os pontos-chave de **Q197–Q204** (hoje as oito com zero
 `ponto_chave`). PDFs arquivados nesta pasta; páginas web listadas por URL.
-Todas as URLs foram verificadas em **30/07/2026**.
+Todas as URLs foram verificadas em **30/07/2026**, e a fonte acrescentada em
+**20/08/2026** (Vassiliadis 2023, no eixo ETL × ELT) na mesma data.
 
 A seção tem **peso 2** na prova real e nasce de duas questões: **Q59** (objetivo
 do ETL, com quatro distratores que são atividades de *outras* camadas) e **Q67**
@@ -19,7 +20,7 @@ do ETL, com quatro distratores que são atividades de *outras* camadas) e **Q67*
 
 ## Arquivados aqui
 
-Seis PDFs e uma página HTML (`gartner.html`, salva à mão porque a Gartner
+Sete PDFs e uma página HTML (`gartner.html`, salva à mão porque a Gartner
 bloqueia acesso automatizado — descrita mais abaixo, junto das fontes web).
 
 ### Fonte canônica da seção inteira
@@ -68,6 +69,41 @@ bloqueia acesso automatizado — descrita mais abaixo, junto das fontes web).
   > no livro (pago). Para redigir `ponto_chave` em prosa, use Chaudhuri & Dayal
   > seção 3 ou Silberschatz cap. 11; os PDFs servem de checklist do rol.
 
+### Eixo ETL × ELT — Q199, Q200, Q201, Q204
+
+- `vassiliadis-2023-history-present-future-etl.pdf` — **Simitsis, A.;
+  Skiadopoulos, S.; Vassiliadis, P., "The History, Present, and Future of ETL
+  Technology"**, *DOLAP 2023* (Test-of-Time Award — Invited Talk), CEUR-WS.
+  **Acrescentada em 20/08/2026 para tirar Q199 da dependência de fonte de
+  fornecedor.** Até então, a única redação explícita de ETL × ELT nesta pasta
+  era a do Microsoft Learn — correta, mas documentação de fabricante. Este é o
+  equivalente **acadêmico e neutro**, escrito pelos três autores do artigo de
+  modelagem conceitual de ETL premiado com o *test-of-time* do DOLAP, e diz a
+  mesma coisa com mais precisão:
+  > *"The ELT approach **moves the transformation phase from the integration
+  > platform**, which now would simply collect and deliver the data, **to the
+  > target data platform**. Hence, ELT **loads the data directly into the
+  > eventual host system and performs the transformations in-situ**."*
+
+  Isto entrega **as duas metades que Q199 pede de uma vez** — o *momento*
+  (transforma depois de carregar, não antes) e o *local* (na plataforma de
+  destino, não na de integração). Cobre ainda:
+  - **Q200/Q201** — por que o ELT ganhou espaço: volume crescente,
+    armazenamento e computação mais baratos, e motores distribuídos
+    (Spark, Hadoop) capazes de transformar in loco.
+  - **Q204** — a seção *"Cloud ELT"*, que descreve exatamente o cenário do
+    caso: escalabilidade elástica, processamento massivamente paralelo,
+    *pipelines serverless* e reequilíbrio dinâmico de trabalho como o que o
+    "cloud native ELT" busca explorar.
+  - Nota de rodapé útil para não engessar o gabarito: *"The ELT can also be
+    met in various incarnations such as **ELTL, ETLT**, etc.; the main concept
+    however does not change."*
+  - De quebra, situa **CDC** (*change data capture*) como um tipo de solução
+    ELT, e descreve *streaming ETL*, *reverse ETL* e a arquitetura *lakehouse*
+    — o que dialoga com `armbrust-2021-lakehouse-cidr.pdf`.
+  Origem (página do próprio Vassiliadis, Univ. de Ioannina):
+  https://www.cs.uoi.gr/~pvassil/publications/TALKS/2023_03_dolap_tota/23DOLAP_TestOfTimeAward_CEUR-CR.pdf
+
 ### Eixo DW × Data Lake — Q203, Q204
 
 - `armbrust-2021-lakehouse-cidr.pdf` — **Armbrust, M.; Ghodsi, A.; Xin, R.;
@@ -88,7 +124,12 @@ bloqueia acesso automatizado — descrita mais abaixo, junto das fontes web).
 
 ## Páginas web (não arquivadas)
 
-### A fonte direta de Q199, Q200 e Q201
+### A redação mais literal de Q199, Q200 e Q201
+
+> A fonte **primária e neutra** desses três itens é o Vassiliadis 2023,
+> arquivado acima. A página abaixo continua valendo pela redação — é a mais
+> próxima do vocabulário de banca —, mas é documentação de fornecedor:
+> use-a para calibrar a frase, não como autoridade isolada.
 
 - **Microsoft Learn — "Extract, transform, load (ETL)"** (Azure Architecture
   Center). É a redação mais limpa e literal da fronteira ETL × ELT que existe em
@@ -237,12 +278,12 @@ bloqueia acesso automatizado — descrita mais abaixo, junto das fontes web).
 |:-:|---|---|---|
 | **Q197** | Objetivo do ETL | **Chaudhuri & Dayal §3** | Kimball 34 subsistemas · Silberschatz cap. 11 |
 | **Q198** | O que o ETL **não** é (dashboard, preditivo, segurança) | **Chaudhuri & Dayal, Figura 1** | Kimball Technical DW/BI Architecture (back room × front room) |
-| **Q199** | ETL × ELT: onde e quando transforma | **MS Learn ETL** ("solely in where the transformation takes place") | MS Learn Synapse ELT |
-| **Q200** | ELT vence em volume **grande**, não pequeno | **MS Learn ETL** ("big data realm"; "powerful enough") | MS Learn Synapse ELT · Armbrust 2021 |
-| **Q201** | Quando o ETL é mais lento | **MS Learn ETL** ("scaling the target data store…"; "skips data copy steps") | MS Learn Synapse ELT |
+| **Q199** | ETL × ELT: onde e quando transforma | **Vassiliadis 2023** ("moves the transformation phase… to the target data platform", "in-situ") | MS Learn ETL ("solely in where the transformation takes place") · MS Learn Synapse ELT |
+| **Q200** | ELT vence em volume **grande**, não pequeno | **MS Learn ETL** ("big data realm"; "powerful enough") | **Vassiliadis 2023** (por que o ELT cresceu) · MS Learn Synapse ELT · Armbrust 2021 |
+| **Q201** | Quando o ETL é mais lento | **MS Learn ETL** ("scaling the target data store…"; "skips data copy steps") | **Vassiliadis 2023** · MS Learn Synapse ELT |
 | **Q202** | O que é DW × banco transacional | **Chaudhuri & Dayal p. 65 (definição de Inmon)** | Codd 1993 (OLTP × OLAP, em `bancodedados/`) · Elmasri cap. 29 |
 | **Q203** | DW × Data Mart × Data Lake | **MS Learn Data Lake** (schema-on-read/write) · **Dixon 2010** | Chaudhuri & Dayal (data mart) · Kimball Bus Architecture · AWS |
-| **Q204** | Caso: migração para nuvem, 4 TB/dia de log | **MS Learn Synapse ELT** · **Gartner 2014 (data swamp)** | MS Learn ETL (*Choose ELT when*) · MS Learn Data Lake (medalhão) · Armbrust 2021 |
+| **Q204** | Caso: migração para nuvem, 4 TB/dia de log | **MS Learn Synapse ELT** · **Gartner 2014 (data swamp)** | **Vassiliadis 2023 (*Cloud ELT*)** · MS Learn ETL (*Choose ELT when*) · MS Learn Data Lake (medalhão) · Armbrust 2021 |
 
 ---
 
@@ -261,10 +302,15 @@ escrever os `ponto_chave`.
    camada de cada uma**, não só dizer "não é ETL".
 
 2. **A fronteira ETL × ELT é *onde*, não *o quê*.** Microsoft é literal:
-   *"differs from ETL solely in where the transformation takes place"*. Um
-   `ponto_chave` que diga "no ELT não há transformação" ou "o ELT dispensa
+   *"differs from ETL solely in where the transformation takes place"*, e
+   Vassiliadis 2023 diz o mesmo em fonte acadêmica: a transformação **muda de
+   plataforma** (da de integração para a de destino) e passa a rodar *in situ*.
+   Um `ponto_chave` que diga "no ELT não há transformação" ou "o ELT dispensa
    modelagem" está errado — as três letras estão nos dois; muda a ordem e a
    máquina que executa. Fronteira D2, é o miolo de Q199.
+   Vassiliadis acrescenta um cuidado: existem **ELTL e ETLT** na prática, e o
+   conceito não muda — não escreva `ponto_chave` que exija as letras em
+   exatamente três posições.
 
 3. **Q67-D inverte duas coisas ao mesmo tempo** — o volume ("pequeno" quando é
    grande) **e** o local ("fora do sistema de destino" quando é dentro). Q200
