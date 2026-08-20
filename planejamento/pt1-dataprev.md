@@ -33,6 +33,7 @@ inteiro (`Sim`) ou cobre só um pedaço dele (`Parte`).
 | Desenvolvimento móvel multiplataforma | 5 | Parte | 19/08 | 19/08 | 🔴 |
 | Internet, extranet, intranet e portal corporativo | 8 | Sim | 19/08 | 19/08 | 🟢 |
 | PWA e SPA | 17 | Parte | 19/08 | 19/08 | 🟢 |
+| DevOps | 10 | Sim | 20/08 | 20/08 | 🟢 |
 | Arquitetura hexagonal, microsserviços e containers | 21 | Sim | | | |
 | Mecanismos de segurança (X.800) e controle de acesso | 36 | Sim | | | |
 
