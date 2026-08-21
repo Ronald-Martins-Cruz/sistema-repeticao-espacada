@@ -39,9 +39,10 @@ qual prova*.
 
 | Tabela | Papel |
 |---|---|
-| `sessao` | Um bloco de estudo. `modo` diz o que estava sendo feito (`revisao`, `fraquezas`, `secao`, `simulado`, `livre`); `filtro` guarda o parâmetro (ex.: `'1.4'` quando `modo='secao'`). |
-| `resposta` | O texto do usuário, na íntegra. **Imutável** por trigger (`trg_resposta_imutavel`) e **não deletável** (`trg_resposta_sem_delete`) — errou a resposta? Grave uma nova. |
-| `avaliacao` | A nota (0–5) e o veredito (`branco`/`errado`/`vago`/`parcial`/`bom`/`completo`) de uma resposta. **Imutável** (`trg_avaliacao_imutavel`) e **não deletável** (`trg_avaliacao_sem_delete`) — reavaliação é uma linha nova, a antiga fica no histórico. |
+| `sessao` | Um bloco de estudo — hoje, literalmente **um bloco de 5 perguntas**: a sessão em bloco abre uma linha aqui por bloco, então uma noite com 14 perguntas devidas são três sessões. `modo` diz o que estava sendo feito (`revisao`, `fraquezas`, `secao`, `simulado`, `livre`); `filtro` guarda o parâmetro (ex.: `'1.4'` quando `modo='secao'`). |
+| `resposta` | O texto do usuário, na íntegra. **Imutável** por trigger (`trg_resposta_imutavel`) e **não deletável** (`trg_resposta_sem_delete`) — errou a resposta? Grave uma nova. Isso torna **resposta gravada na pergunta errada um lixo permanente**, que ainda envenena o SM-2 de duas perguntas: é o risco que a folha de resposta com o `codigo` em cada bloco e a tabela de conferência antes do `INSERT` existem para eliminar. `segundos` fica `NULL` no modo bloco — não há cronômetro por pergunta, e a coluna não é lida por nenhuma view, trigger ou pelo SM-2. |
+| `avaliacao` | A nota (0–5) e o veredito (`branco`/`errado`/`vago`/`parcial`/`bom`/`completo`) de uma resposta, mais `corretor_id` — **qual instrumento deu essa nota**. **Imutável** (`trg_avaliacao_imutavel`) e **não deletável** (`trg_avaliacao_sem_delete`) — reavaliação é uma linha nova, a antiga fica no histórico. A coluna `avaliador` (texto livre, `'ia'` em todas as 177 linhas) foi substituída por `corretor_id` e dropada em 21/08/2026: manter as duas seria ter duas fontes de procedência discordando, já que `avaliador` era `NOT NULL DEFAULT 'ia'` e carimbaria toda avaliação nova em silêncio. |
+| `corretor` | O instrumento que produz uma nota: `modelo`, `esforco`, `provedor`, `isolamento` (`principal`/`subagente`), `versao_instrucoes` e `parametros` (JSON, validado por `CHECK json_valid`). Existe porque nota inflada não distorce só a média — **move o cronograma** (`trg_sm2` converte nota em `intervalo_dias`; um 4 tira a pergunta de circulação por ~40 dias), e sem registrar o instrumento não há como distinguir "eu melhorei" de "o corretor afrouxou". `isolamento` é coluna própria de propósito: é o eixo do contexto frio e não deve poluir o campo do modelo. `esforco` é texto livre, sem `CHECK` — cada fornecedor nomeia o tier diferente e há quem use orçamento numérico —, com o parâmetro bruto em `parametros`. **`versao_instrucoes` é o SHA-256 de `.claude/skills/corretor/SKILL.md`**, a régua; a definição do agente (`.claude/agents/corretor.md`) não precisa de hash próprio porque `modelo` e `esforco` já são a desnormalização do que o frontmatter dela declara. Trocou o modelo → muda `modelo`; editou a régua → muda `versao_instrucoes`; é assim que se descobre depois qual das duas causas moveu as notas. A linha `modelo = 'desconhecido'`, `isolamento = 'principal'` é o backfill honesto das avaliações anteriores a 21/08/2026 — "algum modelo Claude, versão desconhecida, uma pergunta por vez"; não se retroage procedência inventada. |
 | `avaliacao_ponto` | Por avaliação, o status de cada `ponto_chave` cobrado (`citou`/`parcial`/`faltou`/`errou`). É o que alimenta `v_pontos_falhados` e `v_sugestao_ponto`. |
 | `agendamento` | Estado SM-2 por pergunta: `facilidade` (fator de facilidade, piso 1.3), `intervalo_dias`, `repeticoes` (acertos consecutivos), `lapsos`, `proxima_revisao`. **Nunca escrever à mão** — `trg_sm2` reagenda sozinho ao inserir uma avaliação, e toda pergunta nova já ganha uma linha aqui via `trg_pergunta_agenda`. |
 | `config` | Pares chave/valor de configuração solta. Hoje sem uso ativo — a contagem regressiva de prova, que antes morava aqui (`data_prova`), virou a view `v_alvos`, derivada de `prova.status = 'alvo_atual'`. |
@@ -60,6 +61,7 @@ certa (não expor gabarito antes da hora, filtrar só o que está ativo, etc.).
 | `v_pontos_falhados` | Pontos-chave agregados por quantas vezes falharam (`faltou`/`errou`) através de todas as perguntas que os cobram. |
 | `v_sugestao_ponto` | Pontos-chave com falha sistemática (≥3 avaliações, ≥60% de falha, ainda falhando na tentativa mais recente): sugere se o caso pede pergunta dedicada (ponto essencial, concepção errada, ou distrator real da prova) ou se é candidato a remoção (nota não cai quando o ponto falha). |
 | `v_desempenho_secao` | Média de nota e volume de respostas por seção, ordenado da pior média para a melhor. |
+| `v_desempenho_corretor` | O mesmo eixo, mas por **instrumento de correção**: modelo, esforço, isolamento, os 12 primeiros caracteres do hash da régua, volume, nota média e quantas notas caíram em ≥4 e em ≤2. É a view que responde "as notas subiram porque eu melhorei ou porque o corretor afrouxou?" — desde que o instrumento tenha sido registrado a cada avaliação, que é o que `corretor_id` obrigatório garante. |
 | `v_cobertura` | Por seção: quantas perguntas têm gabarito, quantas já foram respondidas ao menos uma vez, quantas nunca foram vistas. |
 | `v_frequencia_notas_secao` | Por seção, a distribuição de notas (contagem de 0 a 5) — mostra se uma seção vai mal por notas médias ou por reprovações concentradas. |
 | `v_progresso` | Panorama geral: total de perguntas ativas, quantas têm gabarito, quantas já foram respondidas, quantas estão devidas hoje, nota média geral. |
@@ -81,7 +83,8 @@ certa (não expor gabarito antes da hora, filtrar só o que está ativo, etc.).
 | `trg_pergunta_janela` | Recusa arquivar pergunta que tem resposta **sem nota**. O ramo `sem_avaliacao` de `v_auditoria` não filtra `ativa`: a pergunta arquivada nesse estado acusaria ali para sempre, e essa view só serve enquanto vive vazia. Bloquear na entrada sai mais barato que ensinar a view a ignorar. |
 | `trg_pergunta_desativada_em` | Carimba `desativada_em` na desativação. |
 | `trg_pergunta_reativada` | Reativar (`ativa = 1`) limpa `desativada_em`, `motivo_desativacao`, `tipo_desativacao` e `desativada_para_prova_id` — os quatro descrevem o estado atual, e ficariam mentindo sobre uma pergunta em uso. Mesma mecânica do `trg_ponto_chave_reativado`. |
-| `trg_sm2` | Reagenda uma pergunta ao inserir uma `avaliacao`, aplicando o algoritmo SM-2 (fator de facilidade, intervalo, contagem de repetições/lapsos). É o único caminho legítimo de escrita em `agendamento`. |
+| `trg_sm2` | Reagenda uma pergunta ao inserir uma `avaliacao`, aplicando o algoritmo SM-2 (fator de facilidade, intervalo, contagem de repetições/lapsos). É o único caminho legítimo de escrita em `agendamento`. **Não é idempotente e não tem cláusula `WHEN`**: uma segunda avaliação da mesma resposta aplica o passo duas vezes — `facilidade` recebe o ajuste do EF duplicado, `repeticoes` incrementa duas vezes, e o intervalo sai ≈ `intervalo × facilidade²`. Nunca aconteceu (zero respostas com mais de uma avaliação), mas é defeito latente e atinge dois caminhos reais: consertar nota errada e calibrar corretores sobre a mesma resposta. Registrado no `TODO.md`; ver lá os formatos de guard. |
+| `trg_avaliacao_corretor` | Recusa `avaliacao` sem `corretor_id`. É a versão em schema do invariante de procedência: a coluna não pôde nascer `NOT NULL` (a tabela já tinha 177 linhas e isso exigiria rebuild), então o trigger impõe o mesmo na entrada. `BEFORE INSERT`, então não atrapalhou o backfill, que foi `UPDATE`. Sem ele, toda avaliação nova poderia nascer com procedência nula em silêncio — exatamente o problema que dropar `avaliador` resolveu. |
 | `trg_resposta_imutavel` | Bloqueia `UPDATE` em `resposta.texto`/`pergunta_id`/`respondida_em`. A resposta é o dado bruto; reavaliar é inserir, nunca editar. |
 | `trg_resposta_sem_delete` | Bloqueia `DELETE` em `resposta`. Histórico de resposta nunca desaparece. |
 | `trg_avaliacao_imutavel` | Bloqueia `UPDATE` em `avaliacao`. Nota errada vira uma **nova** linha, a antiga permanece — `v_auditoria` acusa como `reavaliacao`. |
@@ -96,8 +99,23 @@ certa (não expor gabarito antes da hora, filtrar só o que está ativo, etc.).
 ## Índices
 
 `ix_ponto_chave_pergunta`, `ix_ponto_chave_ativo`, `ix_resposta_pergunta`, `ix_resposta_sessao`,
-`ix_resposta_data`, `ix_avaliacao_resposta`, `ix_avaliacao_ponto_pc`,
+`ix_resposta_data`, `ix_avaliacao_resposta`, `ix_avaliacao_corretor`, `ix_avaliacao_ponto_pc`,
 `ix_agendamento_proxima`, `ix_pergunta_secao`, `ix_prova_status`,
 `ix_etapa_prova`, `ix_ancora_pergunta`, `ix_ancora_etapa` — todos apoiam
 consultas que as views ou o fluxo de sessão fazem com frequência (busca por
 pergunta, por sessão, por data, e a fila ordenada por `proxima_revisao`).
+
+Fora deles há um índice que não é otimização, e sim **constraint**:
+
+- `ux_corretor` — `UNIQUE` sobre `(modelo, provedor, isolamento,
+  COALESCE(esforco,''), COALESCE(versao_instrucoes,''))`. É índice de expressão,
+  e não uma constraint `UNIQUE` de tabela, por um motivo específico: em SQLite
+  dois `NULL` são distintos num `UNIQUE`, então a constraint nua deixaria passar
+  duas linhas com `esforco` nulo e todo o resto igual — que é exatamente a forma
+  da linha de backfill. O `COALESCE` fecha esse buraco.
+
+  Ele garante **ausência de duplicata exata, e só isso**. Contra `opus-5` vs
+  `claude-opus-5` vs `Opus 5` — três strings, uma configuração real — ele não
+  faz nada: são três linhas legítimas aos olhos do índice. A normalização é
+  protocolo, não schema, e mora na skill `estudo` ("Registrar o corretor"):
+  ler a tabela antes de inserir, reusar o `id` que casar.

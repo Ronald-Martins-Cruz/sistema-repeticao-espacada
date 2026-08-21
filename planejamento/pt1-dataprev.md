@@ -22,7 +22,7 @@ inteiro (`Sim`) ou cobre só um pedaço dele (`Parte`).
 | Assunto | Tópico associado | Todo o tópico | Data prevista | Data de estudo | Aprofundamento |
 |---|:--:|:--:|:--:|:--:|:--:|
 | Kanban (revisão + perguntas) | 12 | Parte | 17/08 | 17/08 | 🟢 |
-| XP | 12 | Parte | 17/08 | | 🟡 |
+| XP | 12 | Parte | 17/08 | 20/08 | 🔴 |
 | Básico de Lean | 57 | Parte | 17/08 | 18/08 | 🔴 |
 | Básico de waterfall | 57 | Parte | 17/08 | 18/08 | 🔴 |
 | Básico de ágil híbrido | 57 | Parte | 17/08 | 18/08 | 🔴 |

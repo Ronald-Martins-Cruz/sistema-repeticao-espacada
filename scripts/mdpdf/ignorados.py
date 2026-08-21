@@ -21,8 +21,22 @@ ARQUIVOS = {
     "AGENTS.md",
 }
 
+# Caminhos relativos à raiz, ignorados só naquele lugar — ao contrário de
+# DIRETORIOS, que casa o nome em qualquer nível.
+PREFIXOS = {
+    # As folhas de resposta de cada bloco de estudo, preenchidas no editor.
+    # Não são texto de leitura: o que vira PDF é o feedback, em
+    # `sessoes/feedbacks/`.
+    ("sessoes", "perguntas"),
+}
+
 
 def deve_ignorar(caminho: Path, raiz: Path) -> bool:
     """Indica se um caminho deve ser omitido de uma descoberta recursiva."""
     relativo = caminho.resolve().relative_to(raiz.resolve())
-    return bool(set(relativo.parts[:-1]) & DIRETORIOS) or caminho.name in ARQUIVOS
+    partes = relativo.parts[:-1]
+    return (
+        bool(set(partes) & DIRETORIOS)
+        or any(partes[:len(p)] == p for p in PREFIXOS)
+        or caminho.name in ARQUIVOS
+    )

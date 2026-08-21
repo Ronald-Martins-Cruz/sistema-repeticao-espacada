@@ -20,3 +20,20 @@ md/
 observacoes.md
 prompt.md
 prioridades.md
+
+# As folhas de resposta e os feedbacks de cada bloco de estudo. O que importa
+# deles ja esta no banco, que e versionado: as respostas em `resposta`, as
+# notas e o texto do feedback em `avaliacao`, ambas imutaveis.
+# Ancorado na raiz de proposito: `sessoes` solto casaria em qualquer nivel,
+# inclusive `scripts/mdpdf/marcacoes/sessoes/`, que e justamente o backup dos
+# grifos feitos no PDF do feedback e precisa ir para o git.
+/sessoes/
+
+
+
+
+# O Agile Practice Guide (PMI/Agile Alliance) esta marcado
+# "For Agile Alliance Members Only. Not for distribution, sale, or reproduction."
+# e este repositorio e publico: fica local, para leitura, e nao vai para o git.
+# Baixar de novo: https://www.agilealliance.org/wp-content/uploads/2021/02/AgilePracticeGuide.pdf
+fontes-gabaritos/agil/agile-practice-guide-pmi.pdf
