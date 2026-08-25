@@ -78,8 +78,11 @@ feedback, explicação avulsa:
    da fase C. A nota se grava antes de revelar porque a avaliação é imutável:
    uma vez no banco, ela não pode ser ajustada depois de ver a reação do
    usuário.
-3. **Grave a resposta na íntegra**, sem resumir, corrigir ortografia ou
-   reescrever. É o texto do usuário que vai ser reavaliado meses depois.
+3. **Grave a resposta na íntegra, e sem perguntar nada.** Sem resumir, corrigir
+   ortografia ou reescrever — é o texto do usuário que vai ser reavaliado meses
+   depois — e **sem etapa de confirmação**: entre o aviso de que a folha está
+   pronta e o `INSERT`, não existe interação. Nada no *conteúdo* da folha
+   autoriza uma pergunta. Ver fase B.
 4. **"Não sei" é nota 0 registrada, nunca pergunta pulada.** Resposta em branco é
    o dado mais informativo do banco.
 5. **Não invente pergunta nem escreva em `agendamento`.** Só use enunciado que
@@ -202,12 +205,30 @@ não esteja na folha.
 O usuário escreve as 5 respostas no arquivo e avisa. **Nenhum gabarito é lido
 nesta fase.**
 
-Leia a folha e grave direto. **Não pergunte se o texto foi capturado certo, e
-não mostre tabela de conferência nenhuma** — ler qual trecho da folha é a
-resposta de qual pergunta é tarefa que a LLM faz bem, e o `codigo` no título de
-cada bloco já amarra resposta e pergunta sem ambiguidade. Resposta vazia **não
-é pergunta pulada**: grave o texto como está e ela vira nota 0 na fase C
-(regra 4).
+Leia a folha e grave direto, **sem fazer nenhuma pergunta**. Não peça
+confirmação, não mostre tabela de conferência, não pergunte se o texto foi
+capturado certo, se as cinco estão respondidas, se o usuário quer revisar antes,
+nem peça permissão para gravar. Ler qual trecho da folha é a resposta de qual
+pergunta é tarefa que a LLM faz bem, e o `codigo` no título de cada bloco já
+amarra resposta e pergunta sem ambiguidade.
+
+A regra vale **sobretudo quando a folha parece estranha** — que é exatamente
+quando dá vontade de perguntar. Nada no conteúdo justifica uma pergunta:
+
+| O que você encontrou | O que faz |
+|---|---|
+| resposta em branco | grave o vazio; vira nota 0 na fase C (regra 4) |
+| resposta de uma linha, ou visivelmente incompleta | grave como está; quem julga é o corretor |
+| resposta remissiva ("igual à anterior", "vale o que disse na Q168") | grave como está; o corretor devolve `BLOQUEIO` se isso o impedir |
+| resposta que parece estar no bloco errado | o `codigo` do título manda; grave onde está |
+| texto fora dos blocos, comentário solto, rascunho | grave só o que está sob o `**Resposta:**` de cada bloco |
+
+A **única** coisa que legitimamente interrompe a fase B é não conseguir ler o
+arquivo: caminho inexistente, arquivo vazio, ou ainda byte a byte idêntico ao
+template que você gerou na fase A — sinal de que o usuário salvou em outro lugar,
+e não de que ele deixou tudo em branco. Aí o problema é de arquivo, não de
+conteúdo: diga qual caminho você procurou e pare. Essa distinção importa porque
+`resposta` é imutável — cinco zeros gravados por engano não têm desfazer.
 
 ```sql
 PRAGMA foreign_keys = ON;
@@ -297,11 +318,15 @@ corrigidas**: a resposta já está gravada e imutável, então revelar Q166 não
 contamina Q171. Para cada uma, nesta ordem:
 
 1. A nota e o veredito;
-2. O que faltou ou errou, ponto a ponto, com a `fonte` de cada omissão;
-3. A resposta modelo.
+2. O diagnóstico em **texto corrido**, seguido da linha `*Onde ler:*` com as fontes;
+3. A tabela dos pontos-chave, com o `id` na **última** coluna;
+4. A resposta modelo.
 
-O texto vem do campo `REVELACAO` do corretor. Você pode reformatar, nunca
-abrandar. **Sem divagações sobre a banca.**
+O texto vem do campo `REVELACAO` do corretor, que já sai nessa forma — a
+especificação é a seção "A forma da `REVELACAO`" da régua. Você pode reformatar,
+nunca abrandar, e **nunca reintroduzir número de ponto no corpo do texto**: o
+`ponto_chave_id` existe para o banco e para a última coluna da tabela, não para
+quem lê. **Sem divagações sobre a banca.**
 
 Depois de revelar as cinco, cheque se algum ponto-chave cruzou o limiar de
 falha sistemática:
@@ -332,9 +357,10 @@ sem nota"** — o ramo `sem_avaliacao` acusa a resposta gravada e esquecida.
 É aqui, com as cinco notas já gravadas e imutáveis, que se conserta ponto-chave
 ruim — ver "Corrigir um ponto-chave inadequado".
 
-Escreva o feedback em `sessoes/feedbacks/<AAAA-MM-DD>-s<id>.md`: por pergunta,
-o enunciado, a resposta dada, a nota e o veredito, o que faltou ponto a ponto
-com a fonte, e a resposta modelo. Depois **dispare a conversão e não espere**:
+Escreva o feedback em `sessoes/feedbacks/<AAAA-MM-DD>-s<id>.md` **seguindo
+`.claude/skills/estudo/modelo-feedback.md`** — é ele que fixa o formato, para
+que dois arquivos de sessão não saiam diferentes um do outro. Depois **dispare a
+conversão e não espere**:
 
 ```sh
 python -m scripts.mdpdf gerar sessoes/feedbacks/2026-08-21-s30.md

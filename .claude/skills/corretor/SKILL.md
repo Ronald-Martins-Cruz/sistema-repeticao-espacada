@@ -101,7 +101,7 @@ PONTOS:
 <ponto_chave_id> | <citou|parcial|faltou|errou> | <por que, em uma linha>
 FEEDBACK: <uma a três frases, tudo em UMA linha, sem quebra. É o que vai para a coluna avaliacao.feedback. Diga o que faltou ou errou, não o que estava bonito.>
 REVELACAO:
-<texto livre em markdown: o que faltou ou errou ponto a ponto, cada omissão com a sua `fonte`, e em seguida a resposta modelo montada a partir dos pontos-chave. É o que o usuário vai ler.>
+<markdown, na forma descrita em "A forma da REVELACAO", logo abaixo: o diagnóstico em texto corrido, a linha de fontes, a tabela dos pontos-chave e a resposta modelo, nessa ordem. É o que o usuário vai ler.>
 SINAL_PONTO: <ponto_chave_id> | <o que há de errado com o ponto>   (repita a linha por ponto; omita o campo inteiro se não houver)
 BLOQUEIO: <o que a resposta referenciou e você não pôde ver>       (omita o campo inteiro se não houver)
 ```
@@ -113,3 +113,53 @@ Regras do formato:
 - Apóstrofo pode aparecer normalmente; quem grava cuida do escape.
 - Nenhum campo inventado, nenhum campo obrigatório ausente. `SINAL_PONTO` e
   `BLOQUEIO` são os únicos opcionais.
+
+## A forma da `REVELACAO`
+
+É o texto que o usuário lê. Ele tem que **se ler sozinho, do começo ao fim**,
+sem que o leitor precise cruzar um número com uma linha de tabela para entender
+o que errou. Quatro partes, nesta ordem.
+
+### 1. O diagnóstico, em texto corrido
+
+Prosa contínua. **Sem lista, sem manchete em negrito, e sem citar número de
+ponto** — o texto nomeia o conceito por extenso ("a caracterização do destino",
+não "o ponto 301").
+
+Um parágrafo por erro, e **a unidade é o erro, não o ponto-chave**: um
+mal-entendido que atravessa dois pontos vira um parágrafo só; um ponto com dois
+problemas rende dois. Diagnóstico curto sai num parágrafo apenas. Negrito só no
+que é preciso — número, prazo, percentual, nome exato, a fronteira entre
+conceitos vizinhos.
+
+Escreva sobre a resposta, não sobre quem respondeu: "a comparação foi posta
+entre origem e destino", nunca "você sempre confunde isso" (você não tem
+histórico — ver "Você está isolado"). Diga o que faltou ou errou; ponto correto
+não vira parágrafo, a tabela já registra que foi `citou`.
+
+### 2. A linha de fontes
+
+Uma linha só, abrindo com `*Onde ler:*`, com as `fonte` do que faltou ou errou,
+**sem repetir**. Se uma omissão específica tiver fonte diferente das demais, ela
+vai entre parênteses colada à afirmação, dentro do próprio parágrafo, e fica
+fora dessa linha. **Nenhuma fonte se inventa**: só o que veio no campo `fonte`
+dos pontos-chave. Se nenhum ponto falhado tiver fonte, omita a linha.
+
+### 3. A tabela dos pontos-chave
+
+Todos eles, inclusive os `citou`, na ordem em que vieram. O `ponto_chave_id` é a
+informação menos importante para quem lê: vai na **última** coluna, e em nenhum
+outro lugar do texto.
+
+| Ponto-chave | Essencial | Status | id |
+|---|---|---|---|
+| a situação: volume muito grande, servidor intermediário vira gargalo de I/O | sim | **faltou** | 300 |
+| destino com processamento paralelo massivo e escalável (MPP / nuvem) | sim | **parcial** | 301 |
+| ELT elimina cópia e serialização em staging externo | não | **faltou** | 302 |
+
+`Essencial` é `sim`/`não`. O status vai em negrito quando **não** for `citou`.
+
+### 4. A resposta modelo
+
+Montada a partir dos pontos-chave, em prosa contínua, abrindo com
+`**Resposta modelo.**`.
