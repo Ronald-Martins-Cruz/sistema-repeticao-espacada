@@ -8,38 +8,36 @@ No dia de hoje (17/08) isso resulta em 25 dias. São 62 tópicos a serem estudad
 
 **Legenda — tipo de aprofundamento**
 
-| Cor | Significado |
-|---|---|
-| 🟢 Verde | Estudo aprofundado |
-| 🟡 Amarelo | Estudo parcial |
-| 🔴 Vermelho | Estudo raso |
+| Cor         | Significado        |
+| ----------- | ------------------ |
+| 🟢 Verde    | Estudo aprofundado |
+| 🟡 Amarelo  | Estudo parcial     |
+| 🔴 Vermelho | Estudo raso        |
 
 A coluna **Tópico associado** usa a numeração contínua da ementa transcrita mais
 abaixo neste arquivo, sempre no **item de primeiro nível** — subitens não contam
 como tópico próprio. **Todo o tópico** diz se o assunto esgota aquele item
 inteiro (`Sim`) ou cobre só um pedaço dele (`Parte`).
 
-| Assunto | Tópico associado | Todo o tópico | Data prevista | Data de estudo | Aprofundamento |
-|---|:--:|:--:|:--:|:--:|:--:|
-| Kanban (revisão + perguntas) | 12 | Parte | 17/08 | 17/08 | 🟢 |
-| XP | 12 | Parte | 17/08 | 20/08 | 🔴 |
-| Básico de Lean | 57 | Parte | 17/08 | 18/08 | 🔴 |
-| Básico de waterfall | 57 | Parte | 17/08 | 18/08 | 🔴 |
-| Básico de ágil híbrido | 57 | Parte | 17/08 | 18/08 | 🔴 |
-| Metodologia de Ponto de Função e Story Points | 15 | Sim | 17/08 | | 🟢 |
-| Protocolos HTTPS, SSL/TLS | 18 | Sim | 17/08 | | 🟢 |
-| User Experience (UX) | 23 | Sim | 17/08 | | 🔴 |
-| Frameworks Java (Spring, Spring Cloud, Spring Boot, Hibernate, JUnit) | 5 | Parte | | | 🔴 |
-| Desenvolvimento móvel multiplataforma | 5 | Parte | 19/08 | 19/08 | 🔴 |
-| Internet, extranet, intranet e portal corporativo | 8 | Sim | 19/08 | 19/08 | 🟢 |
-| PWA e SPA | 17 | Parte | 19/08 | 19/08 | 🟢 |
-| DevOps | 10 | Sim | 20/08 | 20/08 | 🟢 |
-| Arquitetura hexagonal, microsserviços e containers | 21 | Sim | | | |
-| Mecanismos de segurança (X.800) e controle de acesso | 36 | Sim | | | |
-
+| Assunto                                                               | Tópico associado | Todo o tópico | Data prevista | Data de estudo | Aprofundamento |
+| --------------------------------------------------------------------- |:----------------:|:-------------:|:-------------:|:--------------:|:--------------:|
+| Kanban (revisão + perguntas)                                          | 12               | Parte         | 17/08         | 17/08          | 🟢             |
+| XP                                                                    | 12               | Parte         | 17/08         | 20/08          | 🔴             |
+| Básico de Lean                                                        | 57               | Parte         | 17/08         | 18/08          | 🔴             |
+| Básico de waterfall                                                   | 57               | Parte         | 17/08         | 18/08          | 🔴             |
+| Básico de ágil híbrido                                                | 57               | Parte         | 17/08         | 18/08          | 🔴             |
+| Metodologia de Ponto de Função e Story Points                         | 15               | Sim           | 17/08         |                | 🟢             |
+| Protocolos HTTPS, SSL/TLS                                             | 18               | Sim           | 17/08         |                | 🟢             |
+| User Experience (UX)                                                  | 23               | Sim           | 17/08         |                | 🔴             |
+| Frameworks Java (Spring, Spring Cloud, Spring Boot, Hibernate, JUnit) | 5                | Parte         |               |                | 🔴             |
+| Desenvolvimento móvel multiplataforma                                 | 5                | Parte         | 19/08         | 19/08          | 🔴             |
+| Internet, extranet, intranet e portal corporativo                     | 8                | Sim           | 19/08         | 19/08          | 🟢             |
+| PWA e SPA                                                             | 17               | Parte         | 19/08         | 19/08          | 🟢             |
+| DevOps                                                                | 10               | Sim           | 20/08         | 20/08          | 🟢             |
+| Arquitetura hexagonal, microsserviços e containers                    | 21               | Sim           |               |                |                |
+| Mecanismos de segurança (X.800) e controle de acesso                  | 36               | Sim           |               |                |                |
 
 Obs: A prova da dataprev ocorrerá em 11/10/2026. Tudo que está aqui é um planejamento anterior a essa data.
-
 
 # Ementa 2026 — Perfil 3: Desenvolvimento de Software (numeração contínua)
 
@@ -68,10 +66,10 @@ filhos são `23.1`, `23.1.1`, `23.1.2`… O item seguinte a `23` é `24`.
 70 questões de múltipla escolha (5 alternativas, 1 correta), 13h às 17h no dia
 11/10/2026. Máximo de 115 pontos. Dentro dessa prova, o que este recorte cobre:
 
-| Disciplina | Módulo | Nº de questões | Pontuação máxima |
-|---|:--:|:--:|:--:|
-| Legislação acerca de Segurança da Informação e Proteção de Dados | I (peso 1) | 5 | 5 |
-| Conhecimentos Específicos (Perfil 3) | II (peso 2,5) | 30 | 75 |
+| Disciplina                                                       | Módulo        | Nº de questões | Pontuação máxima |
+| ---------------------------------------------------------------- |:-------------:|:--------------:|:----------------:|
+| Legislação acerca de Segurança da Informação e Proteção de Dados | I (peso 1)    | 5              | 5                |
+| Conhecimentos Específicos (Perfil 3)                             | II (peso 2,5) | 30             | 75               |
 
 O Módulo II sozinho vale 75 dos 115 pontos (65% da nota) — é onde a
 classificação se decide. As demais disciplinas do Módulo I (35 questões, 35
@@ -79,14 +77,14 @@ pontos) estão fora deste recorte.
 
 ### Faixas da numeração contínua
 
-| Disciplina | Itens |
-|---|:--:|
-| Legislação acerca de Segurança da Informação e Proteção de Dados | 1–4 |
-| Desenvolvimento de Sistemas | 5–24 |
-| Inteligência de Negócios (Business Intelligence) | 25–31 |
-| Segurança da Informação | 32–39 |
-| Banco de Dados | 40–56 |
-| Gestão e Governança de Tecnologia da Informação | 57–62 |
+| Disciplina                                                       | Itens |
+| ---------------------------------------------------------------- |:-----:|
+| Legislação acerca de Segurança da Informação e Proteção de Dados | 1–4   |
+| Desenvolvimento de Sistemas                                      | 5–24  |
+| Inteligência de Negócios (Business Intelligence)                 | 25–31 |
+| Segurança da Informação                                          | 32–39 |
+| Banco de Dados                                                   | 40–56 |
+| Gestão e Governança de Tecnologia da Informação                  | 57–62 |
 
 ---
 
@@ -236,4 +234,3 @@ Ver também
 (ementa completa, com a numeração oficial do edital) e
 [DIFF-EDITAIS-2024-2026.md](DIFF-EDITAIS-2024-2026.md) (o que mudou do edital de
 2024 para este).
-

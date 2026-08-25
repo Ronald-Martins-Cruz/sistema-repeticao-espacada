@@ -3,10 +3,10 @@
 Cadernos oficiais da **FGV** para cargos de TI, baixados de
 `https://conhecimento.fgv.br/sites/default/files/concursos/`.
 Servem para calibrar a dificuldade e o recorte da banca **além** da prova
-DATAPREV 2024 que está em [../prova-texto.md](../prova-texto.md).
+DATAPREV 2024 que está em [../dataprev-2024/prova-texto.md](../dataprev-2024/prova-texto.md).
 
 Material de **outra banca** fica em subpasta própria: o concurso do Banco
-Central (Cebraspe, 2024) está em [bacen/](bacen/README.md).
+Central (Cebraspe, 2024) está em [../bacen/](../bacen/README.md).
 
 A prova-alvo (DATAPREV/FGV, ATI — Desenvolvimento de Software) tem **70 questões
 objetivas**. Prefira as provas marcadas ★ — são as de recorte mais próximo
@@ -18,7 +18,7 @@ dentro do PDF.
 
 ## DATAPREV 2024 — os outros perfis do mesmo concurso
 
-Mesma prova de 17/11/2024 que está em [../prova-texto.md](../prova-texto.md),
+Mesma prova de 17/11/2024 que está em [../dataprev-2024/prova-texto.md](../dataprev-2024/prova-texto.md),
 outros perfis. **O Módulo I (Conhecimentos Gerais — legislação, a Parte I do
 banco) é idêntico em todos**; muda só o Módulo II. São 70 questões cada.
 
@@ -40,6 +40,12 @@ Gabarito oficial definitivo de todos os perfis:
 
 ## Outras bancas/órgãos — cadernos de prova
 
+As linhas ★ **de 2024 para cá** saíram desta pasta: cada uma virou uma
+subpasta de [selecionadas/](selecionadas/), com o caderno, o edital do
+concurso e a ementa do cargo em markdown — ver
+[selecionadas/README.md](selecionadas/README.md). Os gabaritos continuam
+aqui, porque são por concurso e não por cargo.
+
 | ★ | Ano | Órgão | Cargo | Questões | Gabarito |
 |---|---|---|---|---|---|
 | ★ | 2026 | TJ-RJ | Analista Judiciário — TI — Analista de Sistemas | 70 obj. + 1 disc. | [gabarito](gabarito-fgv-2026-tj-rj.pdf) |
@@ -50,7 +56,7 @@ Gabarito oficial definitivo de todos os perfis:
 | ★ | 2025 | DPE-RO | Analista Programador — Classe B | 70 obj. + 1 disc. | [gabarito](gabarito-fgv-2025-dpe-ro.pdf) |
 | ★ | 2024 | TJ-RR | Analista Judiciário — Desenvolvimento de Sistemas | 70 obj. + 1 diss. | [gabarito](gabarito-fgv-2024-tj-rr.pdf) |
 | ★ | 2024 | TJ-AP | Analista Judiciário — Apoio Especializado — TI — Desenvolvimento de Sistemas | 80 obj. | [gabarito](gabarito-fgv-2024-tj-ap.pdf) |
-| ★ | 2024 | ALEP | Analista Legislativo — Desenvolvedor de Sistemas | 70 obj. | [preliminar](gabarito-fgv-2024-alep-preliminar.pdf) |
+| ★ | 2024 | ALEP | Analista Legislativo — Desenvolvedor de Sistemas | 70 obj. + 1 disc. | [preliminar](gabarito-fgv-2024-alep-preliminar.pdf) |
 |  | 2024 | DNIT | Analista Administrativo — Tecnologia da Informação | 80 obj. | [gabarito](gabarito-fgv-2024-dnit.pdf) |
 |  | 2022 | MP-GO | Analista em Informática | 60 obj. + 2 disc. | [gabarito](gabarito-fgv-2022-mp-go.pdf) |
 |  | 2016 | IBGE | Analista — Análise de Sistemas — Desenvolvimento de Sistemas (**Tipo 2**) | 60 obj. + 3 disc. | [gabarito](gabarito-fgv-2016-ibge-analista.pdf) |
@@ -68,7 +74,7 @@ Gabarito oficial definitivo de todos os perfis:
 |---|---|
 | TJ-RJ (edital 1/2025) | 01/02/2026 |
 | MPU (edital 1/2025) | 04/05/2025 |
-| TCE-RR (edital 001/2024) | 02/02/2025 |
+| TCE-RR (edital 001/2024) — Analista Administrativo | 26/01/2025 |
 | TJ-AP (edital 1/2023) | 24/03/2024 |
 | DNIT (edital 01/2023) | 18/02/2024 |
 | TJ-RO | 20/09/2015 |
@@ -95,6 +101,7 @@ por isso DNIT aparece como 2024 (edital de 2023) e TCE-RR como 2025
 dataprev-2024-<perfil>-tipo-01.pdf         caderno DATAPREV (mesmo concurso da prova-alvo)
 fgv-<ano>-<órgão>-<cargo>-tipo-<n>.pdf     caderno de outro concurso
 gabarito-...-<ano>-<órgão>.pdf             gabarito (concurso inteiro)
+selecionadas/<ano>-<órgão>-<cargo>/        caderno + edital + EMENTA.md (ver selecionadas/README.md)
 bacen/                                     outra banca (Cebraspe) — convenção própria, ver bacen/README.md
 ```
 
@@ -112,4 +119,4 @@ programático, e **não é o perfil Desenvolvimento de Software**: no Perfil 6
 Lei nº 15.176/2025), heteroidentificação e requisitos dos Perfis 11 e 12.
 Ou seja: **o conteúdo programático de Desenvolvimento de Software segue
 inalterado** em relação ao edital já guardado em
-[../../editais/edital-dataprev-2026.pdf](../../editais/edital-dataprev-2026.pdf).
+[../../editais/dataprev/edital-dataprev-2026.pdf](../../editais/dataprev/edital-dataprev-2026.pdf).

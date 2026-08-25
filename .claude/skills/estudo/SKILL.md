@@ -202,15 +202,12 @@ não esteja na folha.
 O usuário escreve as 5 respostas no arquivo e avisa. **Nenhum gabarito é lido
 nesta fase.**
 
-Leia a folha e mostre a **tabela de conferência** — obrigatória, não opcional:
-
-| Código | Resposta (primeiros 60 caracteres) |
-|---|---|
-| Q166 | prática de integrar o trabalho no tronco várias vezes ao... |
-| Q168 | entrega contínua deixa o artefato pronto para produção, m... |
-
-Espere um "ok" explícito. Só então grave. Resposta vazia **não é pergunta
-pulada**: grave o texto como está e ela vira nota 0 na fase C (regra 4).
+Leia a folha e grave direto. **Não pergunte se o texto foi capturado certo, e
+não mostre tabela de conferência nenhuma** — ler qual trecho da folha é a
+resposta de qual pergunta é tarefa que a LLM faz bem, e o `codigo` no título de
+cada bloco já amarra resposta e pergunta sem ambiguidade. Resposta vazia **não
+é pergunta pulada**: grave o texto como está e ela vira nota 0 na fase C
+(regra 4).
 
 ```sql
 PRAGMA foreign_keys = ON;

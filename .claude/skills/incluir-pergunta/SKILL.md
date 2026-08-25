@@ -75,18 +75,20 @@ valiosas justamente por isso: banca recicla distrator. Marque-as
 3. **Inserir:**
 
    ```sql
-   INSERT INTO pergunta (codigo, numero, secao_id, enunciado, eh_distrator, eh_caso, profundidade)
+   INSERT INTO pergunta (codigo, numero, secao_id, enunciado, eh_distrator, eh_caso, profundidade, resposta_modelo)
    VALUES (
      'Q243', 243,
      (SELECT id FROM secao WHERE codigo = '2.7'),
      'Enunciado da pergunta...',
-     0, 0, 'D2'
+     0, 0, 'D2',
+     NULL -- ou 'Texto da resposta modelo...'
    );
    ```
 
    `secao_id` sempre vem de `SELECT id FROM secao WHERE codigo = 'n.n'` — os
    códigos de seção estão em `secoes.md`. `profundidade` deve respeitar o
    `CHECK` da tabela: `D0` a `D5`, ou `NULL` se ainda não classificada.
+   `resposta_modelo` é opcional (`TEXT` ou `NULL`).
 
    Um `agendamento` é criado automaticamente por trigger — não insira nessa
    tabela.

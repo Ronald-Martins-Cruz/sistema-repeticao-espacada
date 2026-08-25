@@ -63,6 +63,8 @@ Consequência prática: nenhuma. Não há regra nova a seguir, e a fase E não p
 
 **D7. Confirmação obrigatória antes do `INSERT`.** O principal mostra a tabela `código → primeiros 60 chars da resposta` e espera "ok". Não é opcional — ver R3.
 
+> ❌ **Revogada em 25/08/2026.** Na prática a LLM lê a folha e separa resposta de enunciado sem errar; a confirmação só custava um turno a cada bloco. Contra R3 sobra D6 — o `codigo` no título de cada bloco —, que é onde o mapeamento resposta→pergunta de fato se decide. A fase B da skill `estudo` grava direto.
+
 **D8. O agente não espera o `mdpdf` terminar.** Gera o markdown, dispara a conversão e responde informando que gerou e chamou — o script às vezes demora. Consistente com a regra 10 do `CLAUDE.md`.
 
 Reforço de desempenho: `gerar` aceita alvo (`python -m scripts.mdpdf gerar sessoes/feedbacks/x.md`), bem mais rápido que o `ciclo` completo.
