@@ -55,9 +55,26 @@ sem citar número de ponto.>
 ---
 ````
 
-Fecho do arquivo, depois da última pergunta: os `SINAL_PONTO` e `BLOQUEIO` que
-os corretores tiverem devolvido, as linhas de `v_sugestao_ponto` que aparecerem,
-e a tabela dos próximos agendamentos.
+Fecho do arquivo, depois da última pergunta e **nesta ordem**: os `SINAL_PONTO` e
+`BLOQUEIO` que os corretores tiverem devolvido, as linhas de `v_sugestao_ponto`
+que aparecerem, a contagem regressiva das provas-alvo e a tabela dos próximos
+agendamentos.
+
+A contagem regressiva sai de `v_alvos` — uma linha por prova, dias de
+calendário — e vem imediatamente antes dos agendamentos, porque é ela que dá
+escala à tabela seguinte: com ela ao lado dá para ver quais revisões ainda caem
+antes da prova e quais já caem depois.
+
+````markdown
+## Contagem regressiva
+
+| Prova | Aplicação | Faltam |
+|---|---|---|
+| <órgão> — <cargo> | <DD/MM/AAAA> | <n> dias |
+````
+
+`v_alvos` pode devolver zero ou várias linhas. **Vazia → omita a seção
+inteira**, sem escrever "nenhuma prova alvo" no lugar.
 
 ## Exemplo preenchido
 

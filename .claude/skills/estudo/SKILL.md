@@ -371,6 +371,26 @@ Responda informando que gerou e chamou — o script às vezes demora, e o alvo
 `pdf/sessoes/feedbacks/2026-08-21-s30.pdf`; o que o usuário grifar nele no Edge
 é salvo em `scripts/mdpdf/marcacoes/sessoes/feedbacks/`, que **vai para o git**.
 
+**Sempre informe a contagem regressiva das provas-alvo ao fechar**, em tabela —
+uma linha por prova, com a data de aplicação e quantos dias faltam:
+
+```sql
+SELECT orgao, cargo, data_aplicacao, dias_restantes FROM v_alvos;
+```
+
+| Prova | Aplicação | Faltam |
+|---|---|---|
+| DATAPREV — Analista de TI · Desenvolvimento de Software | 11/10/2026 | 46 dias |
+
+`v_alvos` conta **dias de calendário** — 26/08 para 11/10 dá 46, não 45. Pode
+vir com zero ou várias linhas: uma prova por vez é o caso comum, mas o schema
+admite mais de um `alvo_atual`, e é por isso que a tabela existe em vez de uma
+frase solta. **Vazia → omita a seção**, não escreva "nenhuma prova alvo".
+
+A contagem vem **antes** dos agendamentos de propósito: é ela que dá escala à
+tabela seguinte, deixando ver quais revisões ainda caem antes da prova e quais
+já caem depois dela.
+
 **Sempre informe os próximos agendamentos ao fechar**, em tabela — uma linha por
 data, com a quantidade de revisões daquele dia:
 
@@ -612,7 +632,7 @@ Use as views em vez de montar SQL na mão.
 | `v_auditoria` | Quebras de protocolo. Deve viver vazia |
 | `v_estatistica_pergunta` | Tentativas e média por pergunta |
 | `v_peso_secao` | Quanto cada seção pesou nas provas de referência (`relevancia = 'primaria'`) |
-| `v_alvos` | As provas `status = 'alvo_atual'` e dias restantes até a aplicação |
+| `v_alvos` | As provas `status = 'alvo_atual'` e os dias de calendário restantes até a aplicação — a contagem regressiva do fecho do feedback |
 | `v_catalogo` | O banco inteiro, sem gabarito exposto — usada para checar duplicidade ao incluir pergunta |
 
 ## Manutenção
