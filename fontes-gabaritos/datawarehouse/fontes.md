@@ -354,7 +354,7 @@ escrever os `ponto_chave`.
 
 ## Ainda sem fonte porque ainda não há pergunta (edital 2026)
 
-`docs/editais/LACUNAS-EDITAL-2026.md` registra que o item 17 (ETL/ELT) está
+`docs/provas-editais-alvo/dataprev/LACUNAS-EDITAL-2026.md` registra que o item 17 (ETL/ELT) está
 coberto e o 14 (data lake) só **parcialmente**, "sem soluções de big data". Os
 vizinhos descobertos que puxariam perguntas novas para esta pasta — fontes
 verificadas, **não arquivadas**:

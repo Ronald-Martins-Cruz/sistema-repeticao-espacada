@@ -3,7 +3,7 @@
 Fontes usadas para escrever os pontos-chave da disciplina "Legislação acerca de
 Segurança da Informação e Proteção de Dados" do Módulo I (Conhecimentos
 Gerais), conforme delimitado em
-[`EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md`](../../docs/editais/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md).
+[`EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md`](../../docs/provas-editais-alvo/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md).
 Textos oficiais consolidados, arquivados aqui em HTML a partir do site da
 Presidência da República (planalto.gov.br). Vigentes na versão consolidada
 disponível em 2026-08-10 — a banca não indica data de corte, então usar a

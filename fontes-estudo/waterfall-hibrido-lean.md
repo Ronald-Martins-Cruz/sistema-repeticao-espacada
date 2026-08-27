@@ -223,7 +223,7 @@ contínuo) e **ágil** é um conjunto de valores e práticas influenciado por el
   https://www.martinfowler.com/articles/newMethodology.html
 - **Edital DATAPREV 2026**, Anexo I — Gestão e Governança de TI, item 1
   (*"tipos de abordagem: tradicional, híbrida e ágil"*).
-  [docs/editais/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](../docs/editais/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
+  [docs/provas-editais-alvo/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](../docs/provas-editais-alvo/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
 
 > Este arquivo é **texto de estudo gerado por IA** — não é fonte primária. Para
 > escrever `ponto_chave` (gabarito), use as fontes acima em

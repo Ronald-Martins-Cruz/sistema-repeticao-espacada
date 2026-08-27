@@ -211,7 +211,7 @@ atenção na hora de escrever os `ponto_chave`.
 
 ## Ainda sem fonte porque ainda não há pergunta (edital 2026)
 
-`docs/editais/LACUNAS-EDITAL-2026.md` aponta **Banco de Dados** como a maior lacuna isolada
+`docs/provas-editais-alvo/dataprev/LACUNAS-EDITAL-2026.md` aponta **Banco de Dados** como a maior lacuna isolada
 do banco (5 de 17 subitens cobertos) e coloca **SQL/DDL/DML, normalização,
 integridade referencial e modelagem** como prioridade nº 1. Nenhuma das
 perguntas Q218–Q227 toca nesses temas — quando elas forem escritas, estas são

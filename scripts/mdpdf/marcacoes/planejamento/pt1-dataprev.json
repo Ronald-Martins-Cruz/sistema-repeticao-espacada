@@ -1,11 +1,32 @@
 {
  "origem": "planejamento/pt1-dataprev.md",
- "marcacoes": [],
- "md_sha256": "fda5cf5efd4e831d",
- "atualizado_em": "2026-08-25T19:31:07",
+ "marcacoes": [
+  {
+   "tipo": "Highlight",
+   "pagina": 4,
+   "cor": [
+    1.0,
+    0.9411759972572327,
+    0.4000000059604645
+   ],
+   "preenchimento": [],
+   "opacidade": null,
+   "nota": "",
+   "autor": "",
+   "largura_traco": 1.0,
+   "segmentos": [
+    "data mining."
+   ],
+   "texto": "data mining.",
+   "antes": "28. Definições e conceitos de data warehouse e",
+   "depois": "29. Visualização de dados: BD individuais e cubos."
+  }
+ ],
+ "md_sha256": "7ac04dcc6faf4c6d",
+ "atualizado_em": "2026-08-26T21:53:11",
  "ultima_geracao": {
-  "quando": "2026-08-25T19:31:07",
-  "exatas": 0,
+  "quando": "2026-08-26T21:53:11",
+  "exatas": 1,
   "aproximadas": 0,
   "orfas": 0
  }

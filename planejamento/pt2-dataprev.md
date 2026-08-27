@@ -85,7 +85,7 @@ planejamento anterior a essa data.
 # Ementa 2026 — Módulo I sem Legislação (numeração contínua)
 
 Recorte de
-[EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](../docs/editais/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
+[EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](../docs/provas-editais-alvo/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
 com as quatro disciplinas do Módulo I que a pt1 deixou de fora: **Língua
 Portuguesa**, **Língua Inglesa**, **Raciocínio Lógico** e **Atualidades e
 Inteligência Artificial**.
@@ -206,14 +206,14 @@ Específicos (30 questões, 75 pontos), ambos na [pt1](pt1-dataprev.md).
 
 ## Fonte
 
-`docs/editais/dataprev/edital-dataprev-2026.pdf`, Anexo I – Conteúdo
+`docs/provas-editais-alvo/dataprev/edital-dataprev-2026.pdf`, Anexo I – Conteúdo
 Programático (página 26 do PDF). O **texto** dos itens é o do edital, sem
 paráfrase; só a **numeração** foi trocada pela sequência contínua descrita no
 topo. A disciplina de Legislação e todo o Módulo II ficaram de fora deste
 arquivo — estão na [pt1-dataprev.md](pt1-dataprev.md).
 
 Ver também
-[EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](../docs/editais/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
+[EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](../docs/provas-editais-alvo/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
 (ementa completa, com a numeração oficial do edital) e
-[DIFF-EDITAIS-2024-2026.md](../docs/editais/dataprev/DIFF-EDITAIS-2024-2026.md)
+[DIFF-EDITAIS-2024-2026.md](../docs/provas-editais-alvo/dataprev/DIFF-EDITAIS-2024-2026.md)
 (o que mudou do edital de 2024 para este).

@@ -42,7 +42,7 @@ Obs: A prova da dataprev ocorrerá em 11/10/2026. Tudo que está aqui é um plan
 # Ementa 2026 — Perfil 3: Desenvolvimento de Software (numeração contínua)
 
 Recorte de
-[EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
+[EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](../docs/provas-editais-alvo/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
 que começa na disciplina **Legislação acerca de Segurança da Informação e
 Proteção de Dados** e vai até o fim do Módulo II, com **uma única numeração
 corrida**: o contador **não reinicia** quando o tópico muda. Abre em `1` (Lei nº
@@ -224,13 +224,13 @@ pontos) estão fora deste recorte.
 
 ## Fonte
 
-`docs/editais/dataprev/edital-dataprev-2026.pdf`, Anexo I – Conteúdo
+`docs/provas-editais-alvo/dataprev/edital-dataprev-2026.pdf`, Anexo I – Conteúdo
 Programático (páginas 26 e 29–30 do PDF). O **texto** dos itens é o do edital,
 sem paráfrase; só a **numeração** foi trocada pela sequência contínua descrita
 no topo, e as quatro primeiras disciplinas do Módulo I foram omitidas.
 
 Ver também
-[EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
+[EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md](../docs/provas-editais-alvo/dataprev/EMENTA-DESENVOLVIMENTO-SOFTWARE-2026.md)
 (ementa completa, com a numeração oficial do edital) e
-[DIFF-EDITAIS-2024-2026.md](DIFF-EDITAIS-2024-2026.md) (o que mudou do edital de
+[DIFF-EDITAIS-2024-2026.md](../docs/provas-editais-alvo/dataprev/DIFF-EDITAIS-2024-2026.md) (o que mudou do edital de
 2024 para este).
