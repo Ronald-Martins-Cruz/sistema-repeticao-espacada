@@ -4,7 +4,7 @@ Compara a ementa de **Analista Judiciário – TI – Analista de Sistemas** (TJ
 Edital nº 01/2025, FGV) — [EMENTA.md](EMENTA.md) — com a ementa-alvo de estudo,
 **Analista de TI / Perfil 3: Desenvolvimento de Software** (DATAPREV, Edital nº
 01/2024, FGV) —
-[../../../../provas-editais-alvo/dataprev/dataprev-2024/EMENTA.md](../../../../provas-editais-alvo/dataprev/dataprev-2024/EMENTA.md).
+[dataprev-2024/EMENTA.md](../../../../provas-editais-alvo/dataprev/dataprev-2024/EMENTA.md).
 
 > Prova aplicada em **01/02/2026** — é a mais recente do acervo, e a que melhor
 > mostra como a banca está escrevendo enunciado hoje. A comparação é contra a

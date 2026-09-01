@@ -4,7 +4,7 @@ Compara a ementa de **A06 – Analista do MPU / Desenvolvimento de Sistemas**
 (MPU, Edital nº 01/2025, FGV) — [EMENTA.md](EMENTA.md) — com a ementa-alvo de
 estudo, **Analista de TI / Perfil 3: Desenvolvimento de Software** (DATAPREV,
 Edital nº 01/2024, FGV) —
-[../../../../provas-editais-alvo/dataprev/dataprev-2024/EMENTA.md](../../../../provas-editais-alvo/dataprev/dataprev-2024/EMENTA.md).
+[dataprev-2024/EMENTA.md](../../../../provas-editais-alvo/dataprev/dataprev-2024/EMENTA.md).
 
 > A comparação é contra a ementa de **2024**, que é a base de estudo. O alvo
 > real é o edital de 2026; o que mudou está em
